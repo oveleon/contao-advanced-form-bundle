@@ -1,0 +1,40 @@
+
+<div class="advanced_form_data_default block<?= $this->class ?>">
+
+  <div class="title">Suchauftrag <?= $this->vermarktungsart ?></div>
+  <div class="dateAdded">Erstellt am: <?= $this->dateAdded ?></div>
+  <div><a href="<?= $this->deleteLink ?>">Löschen</a></div>
+  <div>
+    <?php if ($this->objektart): ?>
+      <div>
+        <span>Objektart</span>
+        <span><?= $this->objektart ?></span>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->wohnflaeche): ?>
+      <div>
+        <span>Wohnfläche</span>
+        <span><?= $this->wohnflaeche ?> m²</span>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->zimmer): ?>
+      <div>
+        <span>Zimmer</span>
+        <span><?= $this->zimmer ?></span>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->kaufpreis): ?>
+      <div>
+        <span>Kaufpreis</span>
+        <span><?= $this->kaufpreis ?> €</span>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->mietpreis): ?>
+      <div>
+        <span>Mietpreis</span>
+        <span><?= $this->mietpreis ?> €</span>
+      </div>
+    <?php endif; ?>
+  </div>
+
+</div>

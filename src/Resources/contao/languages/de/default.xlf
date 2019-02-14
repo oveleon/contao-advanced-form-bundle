@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/default.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="ERR.mailAssigned">
+        <source>E-Mail address aleready assigned.</source>
+        <target>Die E-Mail Adresse ist bereits vergeben.</target>
+      </trans-unit>
+      <trans-unit id="ERR.usernameAssigned">
+        <source>Username aleready assigned.</source>
+        <target>Benutzername ist bereits vergeben.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

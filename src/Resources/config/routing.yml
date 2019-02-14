@@ -1,0 +1,10 @@
+oveleon:
+  resource: "@ContaoAdvancedFormBundle/Controller"
+  type: annotation
+
+oveleon_advancedform:
+  path: /contaoadvancedform/
+  defaults:
+    _scope: frontend
+    _controller: "FrameworkBundle:Redirect:redirect"
+    route: advanced_form

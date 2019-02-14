@@ -1,0 +1,34 @@
+<?php $this->extend('form_row'); ?>
+
+<?php $this->block('label'); ?>
+  <?php if ($this->label): ?>
+    <label for="ctrl_<?= $this->id ?>"<?php if ($this->class): ?> class="<?= $this->class ?>"<?php endif; ?>>
+      <?php if ($this->mandatory): ?>
+        <span class="invisible"><?= $this->mandatoryField ?> </span><?= $this->label ?><span class="mandatory">*</span>
+      <?php else: ?>
+        <?= $this->label ?>
+      <?php endif; ?>
+    </label>
+  <?php endif; ?>
+<?php $this->endblock(); ?>
+
+<?php $this->block('field'); ?>
+  <?php if ($this->hasErrors()): ?>
+    <p class="error"><?= $this->getErrorAsString() ?></p>
+  <?php endif; ?>
+
+  <div class="range">
+    <input type="range"<?=$this->outputField ? '' : ' name="'. $this->name .'"'?> id="ctrl_range_<?= $this->id ?>" class="range<?php if ($this->class) echo ' ' . $this->class; ?>" value="<?= $this->value ?>"<?= $this->getAttributes() ?>/>
+    <?php if ($this->outputLegend): ?>
+        <div class="legend">
+            <span class="from"><?=$this->min?></span>
+            <span class="to"><?=$this->max?></span>
+        </div>
+    <?php endif; ?>
+  </div>
+  <?php if ($this->outputField): ?>
+    <div class="text">
+      <input type="number" name="<?= $this->name ?>" id="ctrl_<?= $this->id ?>" value="<?= $this->value ?>" class="text<?php if ($this->class) echo ' ' . $this->class; ?>"/>
+    </div>
+  <?php endif; ?>
+<?php $this->endblock(); ?>

@@ -1,0 +1,154 @@
+
+<div class="<?= $this->class ?> block"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
+  <?php endif; ?>
+
+  <form<?php if ($this->action): ?> action="<?= $this->action ?>"<?php endif; ?> method="<?= $this->method ?>" enctype="<?= $this->enctype ?>"<?= $this->attributes ?><?= $this->novalidate ?>>
+    <div class="formbody<?= $this->pageCss ? ' '.$this->pageCss : '' ?>"<?= $this->pageCssID ?>>
+      <?php if ($this->method != 'get'): ?>
+        <input type="hidden" name="FORM_SUBMIT" id="<?= $this->formSubmit ?>" value="<?= $this->formSubmit ?>">
+        <input type="hidden" name="FORM_PAGE" value="<?= $this->formPage ?>">
+        <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+        <?php if ($this->maxFileSize): ?>
+          <input type="hidden" name="MAX_FILE_SIZE" value="<?= $this->maxFileSize ?>">
+        <?php endif; ?>
+      <?php endif; ?>
+      <?= $this->hidden ?>
+      <?= $this->fields ?>
+      <div class="controls">
+        <?php if ($this->addNextButton): ?>
+          <button type="submit" name="FORM_ACTION" value="next" class="submit"><?= $this->labelNext ?></button>
+        <?php endif; ?>
+        <?php if ($this->addPrevButton): ?>
+          <button type="submit" name="FORM_ACTION" value="prev" class="submit" formnovalidate><?= $this->labelPrev ?></button>
+        <?php endif; ?>
+      </div>
+    </div>
+  </form>
+
+  <div class="progress">
+    <div class="bar" data-max="<?= $this->progressMax ?>" data-value="<?= $this->progressPointer ?>" data-percent="<?= $this->progressPercent ?>" style="width: <?= $this->progressPercent ?>%"></div>
+  </div>
+
+</div>
+<script>
+    function inIframe () {
+        try { return window.self !== window.top; } catch (e) { return true; }
+    }
+
+    function setHeight(){
+        parent.document.getElementsByName(window.name)[0].height = window.document.body.offsetHeight;
+    }
+
+    (function() {
+        if(inIframe()){
+            setHeight();
+            window.addEventListener("resize", setHeight, false);
+        }
+    })();
+</script>
+<?php if ($this->addScript): ?>
+<script>
+    (function() {
+        var btnNext,
+            btnPrev,
+            ceAdvanceForm,
+            formId = '<?= $this->formId ? '#'.$this->formId : '' ?>',
+            xhr = new XMLHttpRequest(),
+
+            aevChange = new CustomEvent('advancedForm.changeStep', {detail: {form: ''}}),
+            aevBeforeChange = new CustomEvent('advancedForm.beforeChangeStep', {detail: {form: '', direction: ''}});
+
+        var serialize = function (form) {
+            var field, s = [];
+            if (typeof form == 'object' && form.nodeName == "FORM") {
+                var len = form.elements.length;
+                for (i=0; i<len; i++) {
+                    field = form.elements[i];
+                    if (field.name && !field.disabled && field.type != 'file' && field.type != 'reset' && field.type != 'submit' && field.type != 'button') {
+                        if (field.type == 'select-multiple') {
+                            for (j=form.elements[i].options.length-1; j>=0; j--) {
+                                if(field.options[j].selected)
+                                    s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[j].value);
+                            }
+                        } else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
+                            s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                        }
+                    }
+                }
+            }
+            return s.join('&').replace(/%20/g, '+');
+        };
+
+        var connect = function () {
+            xhr.open('POST', '/contaoadvancedform/<?= $this->ceId ?>');
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        };
+
+        var next = function (e) {
+            if (!e.target.form.checkValidity())
+                return false;
+
+            e.preventDefault();
+
+            aevBeforeChange.detail.form = e.target.form.parentElement;
+            aevBeforeChange.detail.direction = 'next';
+            document.dispatchEvent(aevBeforeChange);
+
+            connect();
+
+            xhr.send(serialize(e.target.form) + '&FORM_ACTION=next');
+        };
+
+        var prev = function (e) {
+            e.preventDefault();
+
+            aevBeforeChange.detail.form = e.target.form.parentElement;
+            aevBeforeChange.detail.direction = 'prev';
+            document.dispatchEvent(aevBeforeChange);
+
+            connect();
+
+            xhr.send(serialize(e.target.form) + '&FORM_ACTION=prev');
+        };
+
+        var bindElements = function () {
+            btnNext = document.querySelector(formId + ' .controls button[value="next"]');
+            btnPrev = document.querySelector(formId + ' .controls button[value="prev"]');
+            ceAdvanceForm = getAdvancedForm(formId);
+
+            if (btnNext)
+              btnNext.addEventListener('click', next);
+
+            if (btnPrev)
+              btnPrev.addEventListener('click', prev);
+        };
+
+        var getAdvancedForm = function (form) {
+            if (form && document.getElementById(form)) {
+                return document.getElementById(form).parentElement;
+            } else {
+                return document.querySelector('.ce_advancedForm');
+            }
+        };
+
+        xhr.onload = function(e) {
+            if (xhr.status === 200) {
+                ceAdvanceForm.outerHTML = xhr.responseText;
+
+                aevChange.detail.form = getAdvancedForm(formId);
+                document.dispatchEvent(aevChange);
+
+                bindElements();
+            } else {
+                alert('Leider ist Ihre Session abgelaufen, bitte laden Sie die Seite neu um fortzufahren.');
+                // ToDo: Reload?
+            }
+        };
+
+        bindElements();
+    })();
+</script>
+<?php endif; ?>

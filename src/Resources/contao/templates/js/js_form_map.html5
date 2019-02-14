@@ -1,0 +1,78 @@
+<?php
+$GLOBALS['TL_CSS'][] = 'https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css';
+$GLOBALS['TL_JAVASCRIPT'][] = 'https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js';
+$GLOBALS['TL_JAVASCRIPT'][] = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.10.0/mapbox-gl-language.js';
+$GLOBALS['TL_JAVASCRIPT'][] = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js';
+?>
+<script>
+    function formMapInitialization(form){
+        var mapSelector = null;
+
+        if(form === null){
+            mapSelector = document.querySelectorAll('.widget-map .map');
+        }else{
+            mapSelector = form.querySelectorAll('.widget-map .map');
+        }
+
+        if(mapSelector.length){
+            var accessToken = '<?=\Config::get('mapboxAccessToken')?>';
+
+            for(var mc=0; mc<mapSelector.length;mc++){
+                var geo = mapSelector[mc].parentElement.querySelector('.geocoder');
+                var markerColor = window.getComputedStyle(geo, null).getPropertyValue("border-color") || '#2F2F2F';
+
+                mapboxgl.accessToken = accessToken;
+
+                var map = new mapboxgl.Map({
+                    container: mapSelector[mc].id,
+                    style: 'mapbox://styles/mapbox/streets-v9',
+                    center: [10.0818374,50.8567466],
+                    zoom: 5
+                });
+
+                map.on('style.load', function () {
+                    map.addControl(new MapboxLanguage());
+                });
+
+                if(geo){
+                    var adrField = geo.querySelector('.adresse');
+                    var geocoder = new MapboxGeocoder({
+                        accessToken: accessToken,
+                        placeholder: 'Bitte geben Sie einen Ort ein',
+                        language: 'de'
+                    }).on('result', function(e){
+                        adrField.value = e.result.place_name;
+
+                        new mapboxgl.Marker({color: markerColor})
+                                    .setLngLat(e.result.geometry.coordinates)
+                                    .addTo(map);
+                    });
+
+                    var adrValue = geo.querySelector('.adresse_value');
+                    var geoOuter = geocoder.onAdd(map);
+                    var geoInput = geoOuter.querySelector('input');
+
+                    geoInput.minLength = 2;
+                    geoInput.required = true;
+                    geoInput.addEventListener('keyup', function(e){
+                        adrValue.value = this.value;
+                    });
+
+                    geo.appendChild(geoOuter);
+
+                    if(adrField.value){
+                        geoInput.value = adrField.value;
+                    }
+                }
+            }
+        }
+    }
+
+    document.addEventListener('advancedForm.changeStep', function (e) {
+        formMapInitialization(e.detail.form);
+    }, false);
+
+    document.addEventListener('DOMContentLoaded', function(){
+        formMapInitialization(null);
+    }, false );
+</script>

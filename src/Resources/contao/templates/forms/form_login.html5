@@ -1,0 +1,14 @@
+
+<div class="<?= $this->prefix ?><?php if ($this->class) echo ' ' . $this->class; ?>">
+    <?php if ($this->message): ?>
+        <p class="error"><?= $this->message ?></p>
+    <?php endif; ?>
+    <div class="widget widget-text">
+        <label for="username"><?= $this->username ?>Benutzername</label>
+        <input type="text" name="username" id="username" class="text" value="<?= $this->value ?>">
+    </div>
+    <div class="widget widget-password">
+        <label for="password"><?= $this->password ?>Passwort</label>
+        <input type="password" name="password" id="password" class="text password" value="">
+    </div>
+</div>
