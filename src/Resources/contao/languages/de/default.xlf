@@ -9,6 +9,10 @@
         <source>Username aleready assigned.</source>
         <target>Benutzername ist bereits vergeben.</target>
       </trans-unit>
+      <trans-unit id="MSC.emptyListAdvancedForm">
+        <source>There are no data records available.</source>
+        <target>Es sind keine Datensätze vorhanden.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

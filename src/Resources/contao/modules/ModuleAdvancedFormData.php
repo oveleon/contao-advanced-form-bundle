@@ -71,6 +71,9 @@ class ModuleAdvancedFormData extends \Module
 
         $this->Template->dataRows = array();
 
+        $this->Template->advancedFormData = array();
+        $this->Template->empty = $GLOBALS['TL_LANG']['MSC']['emptyListAdvancedForm'];
+
         // Get the total number of items
         $intTotal = $this->countItems();
 

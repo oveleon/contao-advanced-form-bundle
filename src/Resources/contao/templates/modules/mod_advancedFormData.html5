@@ -2,9 +2,11 @@
 
 <?php $this->block('content'); ?>
 
-<?php if ($this->advancedFormData): ?>
-    <?= implode('', $this->advancedFormData) ?>
-    <?= $this->pagination ?>
+<?php if (empty($this->advancedFormData)): ?>
+  <p class="empty"><?= $this->empty ?></p>
+<?php else: ?>
+  <?= implode('', $this->advancedFormData) ?>
+  <?= $this->pagination ?>
 <?php endif; ?>
 
 <?php $this->endblock(); ?>
