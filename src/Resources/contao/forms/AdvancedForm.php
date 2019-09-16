@@ -982,12 +982,12 @@ class AdvancedForm extends \Hybrid
             unset($_SESSION[$this->formId]);
             unset($_SESSION['FORM_DATA']);
 
-            return AdvancedFormPageModel::findOneByPid($this->id);
+            return AdvancedFormPageModel::findOneByPid($this->id, array('order'=>'sorting ASC'));
         }
 
         if (\Environment::get('AdvancedFormUpdate') === 'start')
         {
-            return AdvancedFormPageModel::findOneByPid($this->id);
+            return AdvancedFormPageModel::findOneByPid($this->id, array('order'=>'sorting ASC'));
         }
 
         if (\Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && !isset($_SESSION[$this->formId]['SECOND_ACTION']) && isset($_SESSION[$this->formId]['FORM_PAGE_INDEX']))
@@ -1041,7 +1041,7 @@ class AdvancedForm extends \Hybrid
         }*/
         else
         {
-            $objFormPage = AdvancedFormPageModel::findOneByPid($this->id);
+            $objFormPage = AdvancedFormPageModel::findOneByPid($this->id, array('order'=>'sorting ASC'));
         }
 
         return $objFormPage;
