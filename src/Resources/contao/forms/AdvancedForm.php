@@ -450,17 +450,6 @@ class AdvancedForm extends \Hybrid
 			$this->processFormData($arrSubmitted, $arrLabels, $arrFields);
 		}
 
-		// Add a warning to the page title
-		if ($doNotSubmit && !\Environment::get('isAjaxRequest'))
-		{
-			/** @var \PageModel $objPage */
-			global $objPage;
-
-			$title = $objPage->pageTitle ?: $objPage->title;
-			$objPage->pageTitle = $GLOBALS['TL_LANG']['ERR']['form'] . ' - ' . $title;
-			$_SESSION['FILES'] = array(); // see #3007
-		}
-
 		$strAttributes = '';
 		$arrAttributes = \StringUtil::deserialize($this->attributes, true);
 
