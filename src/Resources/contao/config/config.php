@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Oveleon AdvancedForm.
+ * This file is part of Oveleon AdvancedFormBundle.
  *
  * (c) https://www.oveleon.de/
  */
@@ -31,7 +31,6 @@ array_insert($GLOBALS['TL_CTE']['includes'], 3, array
 // Frontend form fields
 array_insert($GLOBALS['TL_FFL'], -1, array
 (
-    'login'          => '\\Oveleon\\ContaoAdvancedFormBundle\\FormLogin',
     'map'            => '\\Oveleon\\ContaoAdvancedFormBundle\\FormMapField',
     'range'          => '\\Oveleon\\ContaoAdvancedFormBundle\\FormRangeField',
     'usermail'       => '\\Oveleon\\ContaoAdvancedFormBundle\\FormUserMail',

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Oveleon AdvancedForm.
+ * This file is part of Oveleon AdvancedFormBundle.
  *
  * (c) https://www.oveleon.de/
  */
@@ -102,17 +102,14 @@ $GLOBALS['TL_DCA']['tl_advanced_form_page'] = array
     // Palettes
     'palettes' => array
     (
-        '__selector__'                => array('sendViaEmail', 'createMember', 'assignDir', 'sendActivationMail'),
-        'default'                     => '{title_legend},title,alias;{condition_legend:hide},andConditions,conditions,guests,editMode;{email_legend},sendViaEmail;{store_legend:hide},storeValues;{member_legend:hide},createMember;{template_legend:hide},customTpl;{expert_legend:hide},cssID,buttonLabel,editButtonLabel,hidePrevButton,clearData;{publish_legend},published,start,stop'
+        '__selector__'                => array('sendViaEmail'),
+        'default'                     => '{title_legend},title,alias;{condition_legend:hide},andConditions,conditions,guests,editMode;{email_legend},sendViaEmail;{store_legend:hide},storeValues;{template_legend:hide},customTpl;{expert_legend:hide},cssID,buttonLabel,editButtonLabel,hidePrevButton,clearData;{publish_legend},published,start,stop'
     ),
 
     // Subpalettes
     'subpalettes' => array
     (
         'sendViaEmail'                => 'recipient,subject,format,skipEmpty',
-        'createMember'                => 'groups,allowLogin,assignDir,sendActivationMail',
-        'assignDir'                   => 'homeDir',
-        'sendActivationMail'          => 'registrationPage,activationText'
     ),
 
     // Fields
@@ -240,78 +237,6 @@ $GLOBALS['TL_DCA']['tl_advanced_form_page'] = array
             'filter'                  => true,
             'inputType'               => 'checkbox',
             'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'createMember' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['createMember'],
-            'exclude'                 => true,
-            'filter'                  => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'groups' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['groups'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'foreignKey'              => 'tl_member_group.name',
-            'eval'                    => array('multiple'=>true),
-            'sql'                     => "blob NULL",
-            'relation'                => array('type'=>'hasMany', 'load'=>'lazy')
-        ),
-        'allowLogin' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['allowLogin'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'assignDir' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['assignDir'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'homeDir' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['homeDir'],
-            'exclude'                 => true,
-            'inputType'               => 'fileTree',
-            'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
-            'sql'                     => "binary(16) NULL"
-        ),
-        'sendActivationMail' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['sendActivationMail'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'registrationPage' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['registrationPage'],
-            'exclude'                 => true,
-            'inputType'               => 'pageTree',
-            'foreignKey'              => 'tl_page.title',
-            'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'",
-            'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
-        ),
-        'activationText' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['activationText'],
-            'exclude'                 => true,
-            'inputType'               => 'textarea',
-            'eval'                    => array('style'=>'height:120px', 'decodeEntities'=>true, 'alwaysSave'=>true),
-            'load_callback' => array
-            (
-                array('tl_advanced_form_page', 'getActivationDefault')
-            ),
-            'sql'                     => "text NULL"
         ),
         'customTpl' => array
         (
@@ -634,24 +559,5 @@ class tl_advanced_form_page extends Backend
     public function getAllTables()
     {
         return $this->Database->listTables();
-    }
-
-    /**
-     * Load the default activation text
-     *
-     * @param mixed $varValue
-     *
-     * @return mixed
-     */
-    public function getActivationDefault($varValue)
-    {
-        \System::loadLanguageFile('tl_module');
-
-        if (!trim($varValue))
-        {
-            $varValue = (\is_array($GLOBALS['TL_LANG']['tl_module']['emailText']) ? $GLOBALS['TL_LANG']['tl_module']['emailText'][1] : $GLOBALS['TL_LANG']['tl_module']['emailText']);
-        }
-
-        return $varValue;
     }
 }

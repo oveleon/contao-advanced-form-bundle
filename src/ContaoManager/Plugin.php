@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Oveleon DeveloperBundle.
+ * This file is part of Oveleon AdvancedFormBundle.
  *
  * (c) https://www.oveleon.de/
  */
