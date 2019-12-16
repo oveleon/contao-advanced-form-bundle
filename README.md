@@ -27,5 +27,7 @@ composer require oveleon/contao-advanced-form-bundle
 ![Admin View: Advanced form page overview](https://www.oveleon.de/share/github-assets/contao-advanced-form-bundle/advanced-form-page-overview.jpg)
 ##### Advanced form page edit mask
 ![Admin View: Advanced form page edit mask](https://www.oveleon.de/share/github-assets/contao-advanced-form-bundle/advanced-form-page-edit.jpg)
+##### Advanced form page field
+![Admin View: Advanced form page fields](https://www.oveleon.de/share/github-assets/contao-advanced-form-bundle/advanced-form-fields.jpg)
 ##### Advanced form page conditions
 ![Admin View: Advanced form page conditions](https://www.oveleon.de/share/github-assets/contao-advanced-form-bundle/advanced-form-page-condition.jpg)
