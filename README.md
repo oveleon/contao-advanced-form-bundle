@@ -12,10 +12,14 @@ The contao advanced form bundle adds an advanced form generator for multi page f
 - Compatibility to all default Contao form fields
 - Usable as module and content element like default Contao forms 
 
+---
+
 ### Install
 ```
 composer require oveleon/contao-advanced-form-bundle
 ```
+
+---
 
 ### Examples
 #### Admin
