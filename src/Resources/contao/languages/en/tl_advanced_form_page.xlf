@@ -1,367 +1,277 @@
 <?xml version="1.0" ?><xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/tl_advanced_form_page.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_advanced_form_page.php" source-language="en">
     <body>
       <trans-unit id="tl_advanced_form_page.new.0">
         <source>New form page</source>
-        <target>Neues Formularseite</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.new.1">
         <source>Create a new form page</source>
-        <target>Eine neue Formularseite anlegen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.edit.0">
         <source>Edit form page</source>
-        <target>Formularseite bearbeiten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.edit.1">
         <source>Edit form page ID %s</source>
-        <target>Die Formularseite ID %s bearbeiten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.editheader.0">
         <source>Edit form page</source>
-        <target>Formularseite bearbeiten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.editheader.1">
         <source>Edit the form page settings</source>
-        <target>Die Formularseiten-Einstellungen bearbeiten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.copy.0">
         <source>Duplicate form page</source>
-        <target>Formularseite duplizieren</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.copy.1">
         <source>Duplicate form page ID %s</source>
-        <target>Die Formularseite ID %s duplizieren</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.cut.0">
         <source>Move form page</source>
-        <target>Formularseite verschieben</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.cut.1">
         <source>Move form page ID %s</source>
-        <target>Die Formularseite ID %s verschieben</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.delete.0">
         <source>Delete form page</source>
-        <target>Formularseite löschen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.delete.1">
         <source>Delete form page ID %s</source>
-        <target>Die Formularseite ID %s löschen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.toggle.0">
         <source>Toggle visibility</source>
-        <target>Sichtbarkeit ändern</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.toggle.1">
         <source>Toggle the visibility of form page ID %s</source>
-        <target>Die Sichtbarkeit der Formularseite ID %s ändern</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.show.0">
         <source>Form page details</source>
-        <target>Formularseitendetails</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.show.1">
         <source>Show the details of form page ID %s</source>
-        <target>Details der Formularseite ID %s anzeigen</target>
       </trans-unit>
 
       <trans-unit id="tl_advanced_form_page.title_legend">
         <source>Title</source>
-        <target>Titel</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.condition_legend">
         <source>Display conditions</source>
-        <target>Anzeige-Bedingungen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.email_legend">
         <source>Send form data</source>
-        <target>Formulardaten versenden</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.store_legend">
         <source>Save form data</source>
-        <target>Formulardaten speichern</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.member_legend">
         <source>Member settings</source>
-        <target>Mitglieder-Einstellung</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.template_legend">
         <source>Template settings</source>
-        <target>Template-Einstellungen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.expert_legend">
         <source>Expert settings</source>
-        <target>Experten-Einstellungen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.publish_legend">
         <source>Publish settings</source>
-        <target>Veröffentlichung</target>
       </trans-unit>
 
       <trans-unit id="tl_advanced_form_page.tstamp.0">
         <source>Date of change</source>
-        <target>Änderungsdatum</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.tstamp.1">
         <source>Date and time of last change.</source>
-        <target>Datum und Uhrzeit der letzten Änderung.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.title.0">
         <source>Title</source>
-        <target>Titel</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.title.1">
         <source>Please enter the form page title.</source>
-        <target>Bitte geben Sie den Formularseiten-Titel ein.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.alias.0">
         <source>Form page alias</source>
-        <target>Formularseitenalias</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.alias.1">
         <source>The form page alias is a unique reference.</source>
-        <target>Der Formularseitenalias ist eine eindeutige Referenz.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.andConditions.0">
         <source>Enforced conditions</source>
-        <target>Erzwungene Bedingungen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.andConditions.1">
         <source>Form pages are only displayed if all conditions are fulfilled.</source>
-        <target>Formularseiten werden nur angezeigt, wenn alle Bedingungen erfüllt sind.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.conditions.0">
         <source>Conditions</source>
-        <target>Bedingungen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.conditions.1">
         <source>Form pages are only displayed if at least one condition is fulfilled.</source>
-        <target>Formularseiten werden nur angezeigt, wenn mindestens eine Bedingung erfüllt ist.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.guests.0">
         <source>Show to guests only</source>
-        <target>Nur Gästen anzeigen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.guests.1">
         <source>Hide the form page if there is a user is loggeed in.</source>
-        <target>Diese Formularseite ausblenden, sobald ein Benutzer angemeldet ist.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.editMode.0">
         <source>Show only in edit mode</source>
-        <target>Nur im Bearbeitungs-Modus sichtbar</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.editMode.1">
         <source>Show this form page only in edit mode.</source>
-        <target>Diese Formularseite nur im Bearbeitungs-Modus anzeigen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.sendViaEmail.0">
         <source>Send form data via e-mail</source>
-        <target>Per E-Mail versenden</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.sendViaEmail.1">
         <source>Send the submitted data to an e-mail address.</source>
-        <target>Die Formulardaten an eine E-Mail-Adresse versenden.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.recipient.0">
         <source>Recipient address</source>
-        <target>Empfänger-Adresse</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.recipient.1">
         <source>Separate multiple e-mail addresses with comma.</source>
-        <target>Mehrere E-Mail-Adressen können mit Komma getrennt werden.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.subject.0">
         <source>Subject</source>
-        <target>Betreff</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.subject.1">
         <source>Please enter the e-mail subject.</source>
-        <target>Bitte geben Sie die Betreffzeile ein.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.format.0">
         <source>Data format</source>
-        <target>Datenformat</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.format.1">
         <source>Defines how the form data will be forwarded.</source>
-        <target>Hier legen Sie fest, in welchem Format die Formulardaten übermittelt werden.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.raw.0">
         <source>Raw data</source>
-        <target>Rohdaten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.raw.1">
         <source>The form data will be sent as plain text message with each field in a new line.</source>
-        <target>Die Formulardaten werden als einfache Textnachricht mit einer Zeile pro Feld versendet.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.xml.0">
         <source>XML file</source>
-        <target>XML-Datei</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.xml.1">
         <source>The form data will be attached to the e-mail as an XML file.</source>
-        <target>Die Formulardaten werden der E-Mail als XML-Datei angefügt.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.csv.0">
         <source>CSV file</source>
-        <target>CSV-Datei</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.csv.1">
         <source>The form data will be attached to the e-mail as a CSV file.</source>
-        <target>Die Formulardaten werden der E-Mail als CSV-Datei angefügt.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.email.0">
         <source>E-mail</source>
-        <target>E-Mail</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.email.1">
         <source>Ignores all fields except &lt;em&gt;name&lt;/em&gt;, &lt;em&gt;email&lt;/em&gt;, &lt;em&gt;subject&lt;/em&gt;, &lt;em&gt;message&lt;/em&gt; and &lt;em&gt;cc&lt;/em&gt; (carbon copy) and sends the form data like it had been sent from a mail client. File uploads are allowed.</source>
-        <target>Ignoriert alle Felder außer &lt;em&gt;name&lt;/em&gt;, &lt;em&gt;email&lt;/em&gt;, &lt;em&gt;subject&lt;/em&gt;, &lt;em&gt;message&lt;/em&gt; und &lt;em&gt;cc&lt;/em&gt; (Carbon Copy) und verschickt die Formulardaten als wären sie mit einem E-Mail-Programm versendet worden. Datei-Uploads sind erlaubt.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.skipEmtpy.0">
         <source>Skip empty fields</source>
-        <target>Leere Felder auslassen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.skipEmtpy.1">
         <source>Hide empty fields in the e-mail.</source>
-        <target>Leere Felder in der E-Mail nicht anzeigen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.storeValues.0">
         <source>Save data</source>
-        <target>Eingaben speichern</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.storeValues.1">
         <source>Save the submitted data in the database.</source>
-        <target>Übermittelte Formulardaten in der Datenbank speichern.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.createMember.0">
         <source>Create member</source>
-        <target>Mitglied anlegen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.createMember.1">
         <source>Creates a member by submitting an email address, a username and a password.</source>
-        <target>Erzeugt ein Mitglied durch das Übergeben einer E-Mail Adresse, eines Benutzernamens und eines Passwortes.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.groups.0">
         <source>Member groups</source>
-        <target>Mitgliedergruppen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.groups.1">
         <source>Here you can assign the user to one or more groups.</source>
-        <target>Hier können Sie den Benutzer einer oder mehreren Gruppen zuweisen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.allowLogin.0">
         <source>Allow login</source>
-        <target>Login erlauben</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.allowLogin.1">
         <source>Allow the new user to log into the front end.</source>
-        <target>Dem neuen Benutzer die Anmeldung im Frontend erlauben.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.assignDir.0">
         <source>Create a home directory</source>
-        <target>Ein Home-Verzeichnis anlegen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.assignDir.1">
         <source>Create a home directory from the registered username.</source>
-        <target>Ein Home-Verzeichnis aus dem registrierten Benutzernamen erstellen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.homeDir.0">
         <source>Home directory path</source>
-        <target>Pfad zum Home-Verzeichnis</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.homeDir.1">
         <source>Please select the parent folder from the files directory.</source>
-        <target>Bitte wählen Sie das übergeordnete Verzeichnis aus der Dateiübersicht.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.sendActivationMail.0">
         <source>Send activation e-mail</source>
-        <target>Aktivierungsmail verschicken</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.sendActivationMail.1">
         <source>Send an activation e-mail to the registered e-mail address.</source>
-        <target>Eine Aktivierungsmail an die registrierte E-Mail-Adresse senden.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.registrationPage.0">
         <source>Registration page</source>
-        <target>Registrierungsseite</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.registrationPage.1">
         <source>Please select the registration page to which a user should be redirected to activate their user account.</source>
-        <target>Bitte wählen Sie die Registrierungsseite aus, zu der ein Benutzer weitergeletet werden soll, um seinen Benutzeraccount zu aktivieren.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.activationText.0">
         <source>Activation message</source>
-        <target>Aktivierungsmail</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.activationText.1">
         <source>You can use the wildcards &lt;em&gt;##domain##&lt;/em&gt; (domain name), &lt;em&gt;##link##&lt;/em&gt; (activation link) and any input field (e.g. &lt;em&gt;##lastname##&lt;/em&gt;).</source>
-        <target>Sie können die Platzhalter &lt;em&gt;##domain##&lt;/em&gt; (Domainname), &lt;em&gt;##link##&lt;/em&gt; (Aktivierungslink) sowie alle Eingabefelder (z.B. &lt;em&gt;##lastname##&lt;/em&gt;) benutzen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.customTpl.0">
         <source>Custom module template</source>
-        <target>Individuelles Template</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.customTpl.1">
         <source>Here you can overwrite the default module template.</source>
-        <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.cssID.0">
         <source>CSS ID/class</source>
-        <target>CSS-ID/Klasse</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.cssID.1">
         <source>Here you can set an ID and one or more classes.</source>
-        <target>Hier können Sie eine ID und beliebig viele Klassen eingeben.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.buttonLabel.0">
         <source>Submit button label</source>
-        <target>Bezeichnung der Absende-Schaltfläche</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.buttonLabel.1">
         <source>Please enter the label of the submit button.</source>
-        <target>Bitte geben Sie die Bezeichnung der Absende-Schaltfläche ein.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.hidePrevButton.0">
         <source>Don't show back button</source>
-        <target>Zurück-Schaltfläche nicht anzeigen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.hidePrevButton.1">
         <source>Do not display the back button in frontend.</source>
-        <target>Die Zurück-Schaltfläche nicht im Frontend anzeigen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.clearData.0">
         <source>Reset form data</source>
-        <target>Formulardaten zurücksetzen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.clearData.1">
         <source>Resets the form data by submitting the form.</source>
-        <target>Setzt die Formulardaten durch das abschicken des Fomulars zurück.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.published.0">
         <source>Publish form page</source>
-        <target>Formularseite veröffentlichen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.published.1">
         <source>Display the form page in the form.</source>
-        <target>Die Formularseite im Formular anzeigen.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.start.0">
         <source>Activate on</source>
-        <target>Aktivieren am</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.start.1">
         <source>Automatically activate the form page on this day.</source>
-        <target>Die Formularseite automatisch an diesem Tag aktivieren.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.stop.0">
         <source>Deactivate on</source>
-        <target>Deaktivieren am</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_page.stop.1">
         <source>Automatically deactivate the form page on this day.</source>
-        <target>Die Formularseite automatisch an diesem Tag deaktivieren.</target>
       </trans-unit>
     </body>
   </file>

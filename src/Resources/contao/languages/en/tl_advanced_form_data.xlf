@@ -1,199 +1,151 @@
 <?xml version="1.0" ?><xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/tl_advanced_form_data.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_advanced_form_data.php" source-language="en">
     <body>
       <trans-unit id="tl_advanced_form_data.new.0">
         <source>New form data</source>
-        <target>Neue Formular-Daten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.new.1">
         <source>Create a new form dataset</source>
-        <target>Einen neuen Formular-Datensatz anlegen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.edit.0">
         <source>Edit form data</source>
-        <target>Formular-Daten bearbeiten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.edit.1">
         <source>Edit form data ID %s</source>
-        <target>Die Formular-Daten ID %s bearbeiten</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.delete.0">
         <source>Delete form data</source>
-        <target>Formular-Daten löschen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.delete.1">
         <source>Delete form data ID %s</source>
-        <target>Die Formular-Daten ID %s löschen</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.show.0">
         <source>Form data details</source>
-        <target>Formular-Daten Details</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.show.1">
         <source>Show the details of form data ID %s</source>
-        <target>Details der Formular-Daten ID %s anzeigen</target>
       </trans-unit>
 
       <trans-unit id="tl_advanced_form_data.title_legend">
         <source>Title</source>
-        <target>Titel</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield_legend">
         <source>Text fields</source>
-        <target>Text-Felder</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield_legend">
         <source>Number fields</source>
-        <target>Zahlen-Felder</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.teaxtarea_legend">
         <source>Textareas</source>
-        <target>Textareas</target>
       </trans-unit>
 
       <trans-unit id="tl_advanced_form_data.tstamp.0">
         <source>Date of change</source>
-        <target>Änderungsdatum</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.tstamp.1">
         <source>Date and time of last change.</source>
-        <target>Datum und Uhrzeit der letzten Änderung.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.title.0">
         <source>Title</source>
-        <target>Titel</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.title.1">
         <source>Title of form data.</source>
-        <target>Titel der Formular-Daten.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.member.0">
         <source>Member</source>
-        <target>Mitglied</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.member.1">
         <source>The assigned user.</source>
-        <target>Der zugewiesene Benutzer.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield1.0">
         <source>Text field 1</source>
-        <target>Text-Feld 1</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield1.1">
         <source>The first searchable text field.</source>
-        <target>Das erste durchsuchbare Textfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield2.0">
         <source>Text field 2</source>
-        <target>Text-Feld 2</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield2.1">
         <source>The second searchable text field.</source>
-        <target>Das zweite durchsuchbare Textfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield3.0">
         <source>Text field 3</source>
-        <target>Text-Feld 3</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield3.1">
         <source>The third searchable text field.</source>
-        <target>Das dritte durchsuchbare Textfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield4.0">
         <source>Text field 4</source>
-        <target>Text-Feld 4</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield4.1">
         <source>The fourth searchable text field.</source>
-        <target>Das vierte durchsuchbare Textfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield5.0">
         <source>Text field 5</source>
-        <target>Text-Feld 5</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield5.1">
         <source>The fifth searchable text field.</source>
-        <target>Das fünfte durchsuchbare Textfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield6.0">
         <source>Text field 6</source>
-        <target>Text-Feld 6</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textfield6.1">
         <source>The sixth searchable text field.</source>
-        <target>Das sechste durchsuchbare Textfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield1.0">
         <source>Number field 1</source>
-        <target>Zahlen-Feld 1</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield1.1">
         <source>The first searchable number field.</source>
-        <target>Das erste durchsuchbare Zahlenfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield2.0">
         <source>Number field 2</source>
-        <target>Zahlen-Feld 2</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield2.1">
         <source>The second searchable number field.</source>
-        <target>Das zweite durchsuchbare Zahlenfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield3.0">
         <source>Number field 3</source>
-        <target>Zahlen-Feld 3</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield3.1">
         <source>The third searchable number field.</source>
-        <target>Das dritte durchsuchbare Zahlenfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield4.0">
         <source>Number field 4</source>
-        <target>Zahlen-Feld 4</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield4.1">
         <source>The fourth searchable number field.</source>
-        <target>Das vierte durchsuchbare Zahlenfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield5.0">
         <source>Number field 5</source>
-        <target>Zahlen-Feld 5</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield5.1">
         <source>The fifth searchable number field.</source>
-        <target>Das fünfte durchsuchbare Zahlenfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield6.0">
         <source>Number field 6</source>
-        <target>Zahlen-Feld 6</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.numberfield6.1">
         <source>The sixth searchable number field.</source>
-        <target>Das sechste durchsuchbare Zahlenfeld.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textarea1.0">
         <source>Textarea 1</source>
-        <target>Textarea 1</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textarea1.1">
         <source>The first searchable textarea.</source>
-        <target>Die erste durchsuchbare Textarea.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textarea2.0">
         <source>Textarea 2</source>
-        <target>Textarea 2</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textarea2.1">
         <source>The second searchable textarea.</source>
-        <target>Die zweite durchsuchbare Textarea.</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textarea3.0">
         <source>Textarea 3</source>
-        <target>Textarea 3</target>
       </trans-unit>
       <trans-unit id="tl_advanced_form_data.textarea3.1">
         <source>The third searchable textarea.</source>
-        <target>Die dritte durchsuchbare Textarea.</target>
       </trans-unit>
     </body>
   </file>

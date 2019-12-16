@@ -1,0 +1,36 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_form_field.php" source-language="en">
+    <body>
+      <trans-unit id="tl_form_field.rangemin.0">
+        <source>Minimum range</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.rangemin.1">
+        <source>Here you can define the minimum range.</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.rangemax.0">
+        <source>Maximum range</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.rangemax.1">
+        <source>Here you can define the maximum range.</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.rangestep.0">
+        <source>Range step gradiation</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.rangestep.1">
+        <source>Here you can define the step gradation of range fields.</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.outputField.0">
+        <source>Output field</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.outputField.1">
+        <source>The field name is displayed in the range field.</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.outputLegend.0">
+        <source>Output field legend</source>
+      </trans-unit>
+      <trans-unit id="tl_form_field.outputLegend.1">
+        <source>The field legend is displayed in the range field.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

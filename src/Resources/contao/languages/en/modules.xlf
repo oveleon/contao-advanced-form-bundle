@@ -1,13 +1,11 @@
 <?xml version="1.0" ?><xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en">
     <body>
       <trans-unit id="MOD.advanced_form.0">
         <source>Advanced forms</source>
-        <target>Erweiterte Formulare</target>
       </trans-unit>
       <trans-unit id="MOD.advanced_form.1">
         <source>Implement multi-page forms and process, save or send their data.</source>
-        <target>Mehrseitige Formulare umsetzen und deren Daten verarbeiten, speichern oder versenden.</target>
       </trans-unit>
     </body>
   </file>
