@@ -10,6 +10,7 @@ The contao advanced form bundle adds an advanced form generator for multi page f
 - Send all collected data on specific form page
 - Save all collected data on specific form data
 - Compatibility to all default Contao form fields
+- Usable as module and content element like default Contao forms 
 
 ### Install
 ```
