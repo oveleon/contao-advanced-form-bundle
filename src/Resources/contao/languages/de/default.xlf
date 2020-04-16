@@ -10,6 +10,14 @@
                 <source>Username is already taken.</source>
                 <target>Benutzername ist bereits vergeben.</target>
             </trans-unit>
+            <trans-unit id="CTE.advancedForm.0">
+                <source>Advanced form</source>
+                <target>Erweitertes Formular</target>
+            </trans-unit>
+            <trans-unit id="CTE.advancedForm.1">
+                <source>Includes a multi page form.</source>
+                <target>Fügt ein Mehrseitiges Formular ein.</target>
+            </trans-unit>
             <trans-unit id="MSC.emptyListAdvancedForm">
                 <source>There are no data records available.</source>
                 <target>Es sind keine Datensätze vorhanden.</target>

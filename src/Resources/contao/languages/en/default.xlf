@@ -8,6 +8,12 @@
             <trans-unit id="ERR.usernameAssigned">
                 <source>Username is already taken.</source>
             </trans-unit>
+            <trans-unit id="CTE.advancedForm.0">
+                <source>Advanced form</source>
+            </trans-unit>
+            <trans-unit id="CTE.advancedForm.1">
+                <source>Includes a multi page form.</source>
+            </trans-unit>
             <trans-unit id="MSC.emptyListAdvancedForm">
                 <source>There are no data records available.</source>
             </trans-unit>
