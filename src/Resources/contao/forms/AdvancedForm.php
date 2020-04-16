@@ -888,12 +888,17 @@ class AdvancedForm extends \Hybrid
     /**
      * Get all matching form page
      *
-     * @return \Model\Collection|AdvancedFormPageModel[]
+     * @return \Model\Collection|null
      */
     protected function getNecessaryFormPages()
     {
         $arrFormPages = array();
         $objFormPages = AdvancedFormPageModel::findPublishedByPid($this->id, $_SESSION['ADVANCED_FORM_GUEST_PAGE_VISIBLE'] ? false : true);
+
+        if ($objFormPages === null)
+        {
+            return null;
+        }
 
         if ($_SESSION['ADVANCED_FORM_GUEST_PAGE_VISIBLE'])
         {
