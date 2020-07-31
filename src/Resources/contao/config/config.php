@@ -32,10 +32,14 @@ array_insert($GLOBALS['TL_CTE']['includes'], 3, array
 array_insert($GLOBALS['TL_FFL'], -1, array
 (
     'map'            => '\\Oveleon\\ContaoAdvancedFormBundle\\FormMapField',
-    'range'          => '\\Oveleon\\ContaoAdvancedFormBundle\\FormRangeField',
     'usermail'       => '\\Oveleon\\ContaoAdvancedFormBundle\\FormUserMail',
     'username'       => '\\Oveleon\\ContaoAdvancedFormBundle\\FormUserName',
 ));
+// Dont add field range if already exists
+if (!array_key_exists('range', $GLOBALS['TL_FFL']))
+{
+    $GLOBALS['TL_FFL']['range'] = '\\Oveleon\\ContaoAdvancedFormBundle\\FormRangeField';
+}
 
 // Models
 $GLOBALS['TL_MODELS']['tl_advanced_form']      = '\\Oveleon\\ContaoAdvancedFormBundle\\AdvancedFormModel';
