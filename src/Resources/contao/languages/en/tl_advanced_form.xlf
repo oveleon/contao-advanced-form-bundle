@@ -99,12 +99,6 @@
       <trans-unit id="tl_advanced_form.fieldMapping.1">
         <source>Save submitted form data in the specified fields.</source>
       </trans-unit>
-      <trans-unit id="tl_advanced_form.novalidate.0">
-        <source>Disable HTML5 validation</source>
-      </trans-unit>
-      <trans-unit id="tl_advanced_form.novalidate.1">
-        <source>Indicate that the form is not to be validated on submit.</source>
-      </trans-unit>
       <trans-unit id="tl_advanced_form.attributes.0">
         <source>CSS ID/class</source>
       </trans-unit>
@@ -116,6 +110,18 @@
       </trans-unit>
       <trans-unit id="tl_advanced_form.formID.1">
         <source>The form ID is required to trigger a Contao module.</source>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.method.0">
+        <source>Submission method</source>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.method.1">
+        <source>The default form submission method is POST.</source>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.novalidate.0">
+        <source>Disable HTML5 validation</source>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.novalidate.1">
+        <source>Indicate that the form is not to be validated on submit.</source>
       </trans-unit>
     </body>
   </file>

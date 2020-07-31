@@ -131,14 +131,6 @@
         <source>Save submitted form data in the specified fields.</source>
         <target>Übermittelte Formulardaten in den angegebenen Feldern speichern.</target>
       </trans-unit>
-      <trans-unit id="tl_advanced_form.novalidate.0">
-        <source>Disable HTML5 validation</source>
-        <target>HTML5-Validierung deaktivieren</target>
-      </trans-unit>
-      <trans-unit id="tl_advanced_form.novalidate.1">
-        <source>Indicate that the form is not to be validated on submit.</source>
-        <target>Fügt dem Formular das &lt;em&gt;novalidate&lt;/em&gt;-Attribut hinzu.</target>
-      </trans-unit>
       <trans-unit id="tl_advanced_form.attributes.0">
         <source>CSS ID/class</source>
         <target>CSS-ID/Klasse</target>
@@ -154,6 +146,22 @@
       <trans-unit id="tl_advanced_form.formID.1">
         <source>The form ID is required to trigger a Contao module.</source>
         <target>Die Formular-ID wird zur Ansteuerung eines Contao-Moduls benötigt.</target>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.method.0">
+        <source>Submission method</source>
+        <target>Übertragungsmethode</target>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.method.1">
+        <source>The default form submission method is POST.</source>
+        <target>Die Standard-Übertragungsmethode ist POST.</target>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.novalidate.0">
+        <source>Disable HTML5 validation</source>
+        <target>HTML5-Validierung deaktivieren</target>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form.novalidate.1">
+        <source>Indicate that the form is not to be validated on submit.</source>
+        <target>Fügt dem Formular das &lt;em&gt;novalidate&lt;/em&gt;-Attribut hinzu.</target>
       </trans-unit>
     </body>
   </file>

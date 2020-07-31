@@ -323,6 +323,14 @@
         <source>Please enter the label of the submit button.</source>
         <target>Bitte geben Sie die Bezeichnung der Absende-Schaltfläche ein.</target>
       </trans-unit>
+      <trans-unit id="tl_advanced_form_page.editButtonLabel.0">
+        <source>Edit button label</source>
+        <target>Bezeichnung der Bearbeiten-Schaltfläche</target>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form_page.editButtonLabel.1">
+        <source>Please enter the label of the submit button in edit mode.</source>
+        <target>Bitte geben Sie die Bezeichnung der Absende-Schaltfläche für den Bearbeitungsmodus ein.</target>
+      </trans-unit>
       <trans-unit id="tl_advanced_form_page.hidePrevButton.0">
         <source>Don't show back button</source>
         <target>Zurück-Schaltfläche nicht anzeigen</target>
