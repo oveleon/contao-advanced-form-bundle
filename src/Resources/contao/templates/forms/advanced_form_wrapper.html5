@@ -33,6 +33,7 @@
   </div>
 
 </div>
+<?php if ($this->addScript): ?>
 <script>
     function inIframe () {
         try { return window.self !== window.top; } catch (e) { return true; }
@@ -48,9 +49,7 @@
             window.addEventListener("resize", setHeight, false);
         }
     })();
-</script>
-<?php if ($this->addScript): ?>
-<script>
+
     (function() {
         var btnNext,
             btnPrev,
