@@ -315,12 +315,145 @@ $GLOBALS['TL_DCA']['tl_advanced_form_page'] = array
     )
 );
 
+$bundles = Contao\System::getContainer()->getParameter('kernel.bundles');
+
+// Notification center integration
+if (isset($bundles['notification_center']))
+{
+    Contao\System::loadLanguageFile('tl_form');
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['nc_notification'] = array
+    (
+        'label'                     => &$GLOBALS['TL_LANG']['tl_form']['nc_notification'],
+        'exclude'                   => true,
+        'inputType'                 => 'select',
+        'options_callback'          => array('NotificationCenter\tl_form', 'getNotificationChoices'),
+        'eval'                      => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'clr'),
+        'sql'                       => "int(10) unsigned NOT NULL default '0'"
+    );
+
+    Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+        ->addField(array('nc_notification'), 'sendViaEmail', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_BEFORE)
+        ->applyToPalette('default', 'tl_advanced_form_page');
+}
+
+// Contao leads integration
+if (isset($bundles['leads']))
+{
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['ctable'][] = 'tl_lead_export';
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['oncopy_callback'][] = array('tl_advanced_form_page', 'onCopyCallback');
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['onload_callback'][] = array('tl_advanced_form_page', 'modifyPaletteLeads');
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['sql']['keys']['leadEnabled'] = 'index';
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['sql']['keys']['leadMaster'] = 'index';
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['sql']['keys']['leadEnabled,leadMaster'] = 'index';
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['__selector__'][] = 'leadEnabled';
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['__selector__'][] = 'leadMaster';
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['title']['eval']['decodeEntities'] = true;
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadEnabled'] = array
+    (
+        'label'                 => &$GLOBALS['TL_LANG']['tl_form']['leadEnabled'],
+        'exclude'               => true,
+        'inputType'             => 'checkbox',
+        'eval'                  => array('tl_class'=>'clr', 'submitOnChange'=>true),
+        'sql'                   => "char(1) NOT NULL default ''"
+    );
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadMaster'] = array
+    (
+        'label'                 => &$GLOBALS['TL_LANG']['tl_form']['leadMaster'],
+        'exclude'               => true,
+        'inputType'             => 'select',
+        'options_callback'      => array('tl_advanced_form_page', 'getMasterForms'),
+        'eval'                  => array(
+            'submitOnChange'=>true,
+            'includeBlankOption'=>true,
+            'blankOptionLabel'=>&$GLOBALS['TL_LANG']['tl_form']['leadMasterBlankOptionLabel'],
+            'tl_class'=>'w50'
+        ),
+        'sql'                   => "int(10) unsigned NOT NULL default '0'"
+    );
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadMenuLabel'] = array
+    (
+        'label'                 => &$GLOBALS['TL_LANG']['tl_form']['leadMenuLabel'],
+        'exclude'               => true,
+        'inputType'             => 'text',
+        'eval'                  => array('maxlength'=>255, 'tl_class'=>'w50', 'decodeEntities'=>true),
+        'sql'                   => "varchar(255) NOT NULL default ''"
+    );
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadLabel'] = array
+    (
+        'label'                 => &$GLOBALS['TL_LANG']['tl_form']['leadLabel'],
+        'exclude'               => true,
+        'inputType'             => 'textarea',
+        'eval'                  => array('mandatory'=>true, 'decodeEntities'=>true, 'style'=>'height:60px', 'allowHtml'=>true, 'tl_class'=>'clr'),
+        'sql'                   => "text NULL"
+    );
+}
+
+// Contao leads optin integration
+if (isset($bundles['leads-optin']))
+{
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['__selector__'][] = 'leadOptIn';
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['subpalettes']['leadOptIn'] = 'leadOptInNotification,leadOptInStoreIp,leadOptInTarget';
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['config']['onload_callback'][] = array('tl_advanced_form_page', 'modifyPaletteOptin');
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadOptIn'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_form']['leadOptIn'],
+        'exclude'   => true,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true),
+        'sql'       => "char(1) NOT NULL default ''",
+    );
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadOptInStoreIp'] = array
+    (
+        'label'     => &$GLOBALS['TL_LANG']['tl_form']['leadOptInStoreIp'],
+        'exclude'   => true,
+        'inputType' => 'checkbox',
+        'eval'      => array('tl_class' => 'w50 m12'),
+        'sql'       => "char(1) NOT NULL default ''",
+    );
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadOptInNotification'] = array
+    (
+        'label'            => &$GLOBALS['TL_LANG']['tl_form']['leadOptInNotification'],
+        'exclude'          => true,
+        'inputType'        => 'select',
+        'options_callback' => array('Boelter\\LeadsOptin\\Dca\\Form', 'getNotifications'),
+        'eval'             => array('tl_class' => 'w50 m12', 'includeBlankOption' => true, 'mandatory' => true),
+        'sql'              => "int(10) unsigned NOT NULL default '0'",
+    );
+
+    $GLOBALS['TL_DCA']['tl_advanced_form_page']['fields']['leadOptInTarget'] = array(
+        'label'      => &$GLOBALS['TL_LANG']['tl_form']['leadOptInTarget'],
+        'exclude'    => true,
+        'inputType'  => 'pageTree',
+        'foreignKey' => 'tl_page.title',
+        'eval'       => array(
+            'fieldType' => 'radio',
+            'tl_class'  => 'w50',
+        ),
+        'sql'        => "int(10) unsigned NOT NULL default '0'",
+        'relation'   => array(
+            'type' => 'hasOne',
+            'load' => 'eager',
+        ),
+    );
+}
+
 /**
  * Provide miscellaneous methods that are used by the data configuration array.
  *
  * @author Fabian Ekert <fabian@oveleon.de>
  */
-class tl_advanced_form_page extends Backend
+class tl_advanced_form_page extends \Backend
 {
 
     /**
@@ -329,7 +462,7 @@ class tl_advanced_form_page extends Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
+        $this->import('Contao\BackendUser', 'User');
     }
 
     /**
@@ -342,7 +475,7 @@ class tl_advanced_form_page extends Backend
      *
      * @throws Exception
      */
-    public function generateAlias($varValue, DataContainer $dc)
+    public function generateAlias($varValue, \DataContainer $dc)
     {
         $autoAlias = false;
 
@@ -559,5 +692,104 @@ class tl_advanced_form_page extends Backend
     public function getAllTables()
     {
         return $this->Database->listTables();
+    }
+
+    /**
+     * On copy callback
+     *
+     * @param int            $id
+     * @param \DataContainer $dc
+     */
+    public function onCopyCallback($id, \DataContainer $dc)
+    {
+        $db = \Database::getInstance();
+        $exports = $db->prepare("SELECT id, fields FROM tl_lead_export WHERE pid=?")->execute($id);
+
+        if (!$exports->numRows) {
+            return;
+        }
+
+        $oldFormFields = $db->prepare("SELECT id FROM tl_form_field WHERE pid=? ORDER BY sorting")->execute($dc->id);
+        $newFormFields = $db->prepare("SELECT id FROM tl_form_field WHERE pid=? ORDER BY sorting")->execute($id);
+
+        // Create the fields mapper
+        $fieldsMapper = array_combine($oldFormFields->fetchEach('id'), $newFormFields->fetchEach('id'));
+
+        while ($exports->next()) {
+            $fields = deserialize($exports->fields, true);
+
+            // Map the fields
+            foreach ($fields as $k => $v) {
+                if (isset($fieldsMapper[$v['field']])) {
+                    $fields[$k]['field'] = $fieldsMapper[$v['field']];
+                }
+            }
+
+            $db->prepare('UPDATE tl_lead_export SET fields=? WHERE id=?')->execute(serialize($fields), $exports->id);
+        }
+    }
+
+    /**
+     * Modify the palette based on configuration. We can't use simple subpalettes
+     * because we do more complex things.
+     *
+     * @param   $dc
+     */
+    public function modifyPaletteLeads($dc)
+    {
+        $strPalette = 'leadEnabled';
+        $objForm = \Oveleon\ContaoAdvancedFormBundle\AdvancedFormPageModel::findByPk($dc->id);
+
+        if ($objForm && $objForm->leadEnabled) {
+            $strPalette .= ',leadMaster';
+
+            if ($objForm->leadMaster == 0) {
+                $strPalette .= ',leadMenuLabel,leadLabel';
+            }
+        }
+
+        $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['default'] = str_replace('storeValues', 'storeValues,'.$strPalette, $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['default']);
+    }
+
+    /**
+     * Modify the palette based on configuration. We can't use simple subpalettes
+     * because we do more complex things.
+     *
+     * @param   $dc
+     */
+    public function modifyPaletteOptin($dc)
+    {
+        $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['default'] = str_replace('leadLabel', 'leadLabel,leadOptIn', $GLOBALS['TL_DCA']['tl_advanced_form_page']['palettes']['default']);
+    }
+
+    /**
+     * Gets the master forms.
+     *
+     * @param $dc
+     *
+     * @return array
+     */
+    public function getMasterForms($dc)
+    {
+        $user = \Contao\BackendUser::getInstance();
+        $filter = null;
+
+        // Check user permissions
+        if (!$user->isAdmin) {
+            if (!is_array($user->forms) || empty($user->forms)) {
+                return [];
+            }
+
+            $filter = $user->forms;
+        }
+
+        $arrForms = array();
+        $objForms = \Database::getInstance()->execute("SELECT id, title FROM tl_advanced_form_page WHERE leadEnabled='1' AND leadMaster=0 AND id!=" . (int) $dc->id . (($filter !== null) ? " AND id IN(" . implode(',', $filter) . ")" : ""));
+
+        while ($objForms->next()) {
+            $arrForms[$objForms->id] = $objForms->title;
+        }
+
+        return $arrForms;
     }
 }
