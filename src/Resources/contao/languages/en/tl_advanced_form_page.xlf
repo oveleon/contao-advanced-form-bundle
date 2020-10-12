@@ -237,6 +237,12 @@
       <trans-unit id="tl_advanced_form_page.cssID.1">
         <source>Here you can set an ID and one or more classes.</source>
       </trans-unit>
+      <trans-unit id="tl_advanced_form_page.pageProgress.0">
+        <source>Progress bar value</source>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form_page.pageProgress.1">
+        <source>Here you can set the progress bar value in percent.</source>
+      </trans-unit>
       <trans-unit id="tl_advanced_form_page.buttonLabel.0">
         <source>Submit button label</source>
       </trans-unit>

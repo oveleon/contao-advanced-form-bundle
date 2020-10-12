@@ -103,7 +103,7 @@ $GLOBALS['TL_DCA']['tl_advanced_form_page'] = array
     'palettes' => array
     (
         '__selector__'                => array('sendViaEmail'),
-        'default'                     => '{title_legend},title,alias;{condition_legend:hide},andConditions,conditions,guests,editMode;{email_legend},sendViaEmail;{store_legend:hide},storeValues;{template_legend:hide},customTpl;{expert_legend:hide},cssID,buttonLabel,editButtonLabel,hidePrevButton,clearData;{publish_legend},published,start,stop'
+        'default'                     => '{title_legend},title,alias;{condition_legend:hide},andConditions,conditions,guests,editMode;{email_legend},sendViaEmail;{store_legend:hide},storeValues;{template_legend:hide},customTpl;{expert_legend:hide},cssID,pageProgress,buttonLabel,editButtonLabel,hidePrevButton,clearData;{publish_legend},published,start,stop'
     ),
 
     // Subpalettes
@@ -254,6 +254,14 @@ $GLOBALS['TL_DCA']['tl_advanced_form_page'] = array
             'inputType'               => 'text',
             'eval'                    => array('multiple'=>true, 'size'=>2, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'pageProgress' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['pageProgress'],
+            'exclude'                 => true,
+            'inputType'               => 'text',
+            'eval'                    => array('rgxp'=>'natural', 'tl_class'=>'w50'),
+            'sql'                     => "smallint(10) unsigned NOT NULL default 0"
         ),
         'buttonLabel' => array
         (

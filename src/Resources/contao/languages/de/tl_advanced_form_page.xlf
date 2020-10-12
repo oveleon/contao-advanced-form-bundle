@@ -315,6 +315,14 @@
         <source>Here you can set an ID and one or more classes.</source>
         <target>Hier können Sie eine ID und beliebig viele Klassen eingeben.</target>
       </trans-unit>
+      <trans-unit id="tl_advanced_form_page.pageProgress.0">
+        <source>Progress bar value</source>
+        <target>Wert des Fortschrittbalkens</target>
+      </trans-unit>
+      <trans-unit id="tl_advanced_form_page.pageProgress.1">
+        <source>Here you can set the progress bar value in percent.</source>
+        <target>Hier können Sie den Wert des Fortschrittbalkens in prozent angeben.</target>
+      </trans-unit>
       <trans-unit id="tl_advanced_form_page.buttonLabel.0">
         <source>Submit button label</source>
         <target>Bezeichnung der Absende-Schaltfläche</target>

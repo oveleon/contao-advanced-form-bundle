@@ -197,7 +197,7 @@ class AdvancedForm extends \Hybrid
         $progressPointer = $this->getProgessPointer();
         $this->Template->progressMax = $progressMax;
         $this->Template->progressPointer = $progressPointer;
-        $this->Template->progressPercent = 100 / $progressMax * $progressPointer;
+        $this->Template->progressPercent = $this->objFormPage->pageProgress ? $this->objFormPage->pageProgress : 100 / $progressMax * $progressPointer;
 
 		$this->initializeSession($this->formId);
 		$arrLabels = array();
