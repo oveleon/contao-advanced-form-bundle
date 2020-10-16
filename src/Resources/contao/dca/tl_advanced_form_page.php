@@ -260,8 +260,8 @@ $GLOBALS['TL_DCA']['tl_advanced_form_page'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_advanced_form_page']['pageProgress'],
             'exclude'                 => true,
             'inputType'               => 'text',
-            'eval'                    => array('rgxp'=>'natural', 'tl_class'=>'w50'),
-            'sql'                     => "smallint(10) unsigned NOT NULL default 0"
+            'eval'                    => array('rgxp'=>'natural', 'nospace'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "smallint(5) NULL"
         ),
         'buttonLabel' => array
         (
