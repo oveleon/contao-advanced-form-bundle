@@ -495,6 +495,19 @@ class AdvancedForm extends \Hybrid
 	 */
 	protected function processFormData($arrSubmitted, $arrLabels, $arrFields)
 	{
+        foreach ($_SESSION[$this->formId] as $k=>$v)
+        {
+            if ($k == 'SECOND_ACTION' || $k == 'FORM_PAGE' || $k == 'SECOND_ACTION_INDEX' || $k == 'FORM_PAGE_INDEX')
+            {
+                continue;
+            }
+
+            if (!array_key_exists($k, $arrSubmitted))
+            {
+                $arrSubmitted[$k] = $v;
+            }
+        }
+
 		// HOOK: prepare form data callback
 		if (isset($GLOBALS['TL_HOOKS']['prepareFormData']) && \is_array($GLOBALS['TL_HOOKS']['prepareFormData']))
 		{
@@ -859,7 +872,7 @@ class AdvancedForm extends \Hybrid
 			foreach ($GLOBALS['TL_HOOKS']['processFormData'] as $callback)
 			{
 				$this->import($callback[0]);
-				$this->{$callback[0]}->{$callback[1]}($arrSubmitted, $this->arrData, $arrFiles, $arrLabels, $this);
+				$this->{$callback[0]}->{$callback[1]}($arrSubmitted, $this->objFormPage->row(), $arrFiles, $arrLabels, $this);
 			}
 		}
 
