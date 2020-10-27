@@ -865,6 +865,12 @@ class AdvancedForm extends \Hybrid
 		}
 
 		$arrFiles = $_SESSION['FILES'];
+		$arrData = array();
+
+		if ($this->objFormPage !== null)
+        {
+            $arrData = $this->objFormPage->row();
+        }
 
 		// HOOK: process form data callback
 		if (isset($GLOBALS['TL_HOOKS']['processFormData']) && \is_array($GLOBALS['TL_HOOKS']['processFormData']))
@@ -872,7 +878,7 @@ class AdvancedForm extends \Hybrid
 			foreach ($GLOBALS['TL_HOOKS']['processFormData'] as $callback)
 			{
 				$this->import($callback[0]);
-				$this->{$callback[0]}->{$callback[1]}($arrSubmitted, $this->objFormPage->row(), $arrFiles, $arrLabels, $this);
+				$this->{$callback[0]}->{$callback[1]}($arrSubmitted, $arrData, $arrFiles, $arrLabels, $this);
 			}
 		}
 
