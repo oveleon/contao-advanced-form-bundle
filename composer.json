@@ -3,7 +3,7 @@
   "type":"contao-bundle",
   "description":"Extended form generator for Contao 4 Open Source CMS",
   "keywords":["contao","advanced-form-bundle"],
-  "homepage":"https://oveleon.de/",
+  "homepage":"https://www.oveleon.de/advancedform.html",
   "license":"MIT",
   "authors":[
     {
