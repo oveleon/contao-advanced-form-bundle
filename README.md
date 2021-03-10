@@ -1,4 +1,4 @@
-> ###This bundle is no longer maintained. Moved to:
+> ### This bundle is no longer maintained. Moved to:
 > https://github.com/oveleon/contao-advanced-form
 
 # Contao Advanced Form
