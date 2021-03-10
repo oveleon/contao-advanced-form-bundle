@@ -1,3 +1,6 @@
+> **This bundle is no longer maintained. Moved to:**
+> https://github.com/oveleon/contao-advanced-form
+
 # Contao Advanced Form
 
 The contao advanced form bundle adds an advanced form generator for multi page forms to Contao 4.
