@@ -7,7 +7,9 @@
  */
 
 // Back end modules
-array_insert($GLOBALS['BE_MOD']['content'], 3, array
+use Contao\ArrayUtil;
+
+ArrayUtil::arrayInsert($GLOBALS['BE_MOD']['content'], 3, array
 (
     'advanced_form' => array
     (
@@ -16,26 +18,26 @@ array_insert($GLOBALS['BE_MOD']['content'], 3, array
 ));
 
 // Front end modules
-array_insert($GLOBALS['FE_MOD']['application'], 1, array
+ArrayUtil::arrayInsert($GLOBALS['FE_MOD']['application'], 1, array
 (
     'advancedForm'          => '\\Oveleon\\ContaoAdvancedFormBundle\\AdvancedForm',
     'advancedFormData'      => '\\Oveleon\\ContaoAdvancedFormBundle\\ModuleAdvancedFormData',
 ));
 
 // Content elements
-array_insert($GLOBALS['TL_CTE']['includes'], 3, array
+ArrayUtil::arrayInsert($GLOBALS['TL_CTE']['includes'], 3, array
 (
     'advancedForm'          => '\\Oveleon\\ContaoAdvancedFormBundle\\AdvancedForm',
 ));
 
 // Frontend form fields
-array_insert($GLOBALS['TL_FFL'], -1, array
+ArrayUtil::arrayInsert($GLOBALS['TL_FFL'], -1, array
 (
     'map'            => '\\Oveleon\\ContaoAdvancedFormBundle\\FormMapField',
     'usermail'       => '\\Oveleon\\ContaoAdvancedFormBundle\\FormUserMail',
     'username'       => '\\Oveleon\\ContaoAdvancedFormBundle\\FormUserName',
 ));
-// Dont add field range if already exists
+// Don't add field range if already exists
 if (!array_key_exists('range', $GLOBALS['TL_FFL']))
 {
     $GLOBALS['TL_FFL']['range'] = '\\Oveleon\\ContaoAdvancedFormBundle\\FormRangeField';

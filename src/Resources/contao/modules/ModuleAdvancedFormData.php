@@ -8,8 +8,18 @@
 
 namespace Oveleon\ContaoAdvancedFormBundle;
 
+use Contao\BackendTemplate;
+use Contao\Config;
 use Contao\CoreBundle\Exception\PageNotFoundException;
-use Patchwork\Utf8;
+use Contao\Date;
+use Contao\Environment;
+use Contao\FrontendTemplate;
+use Contao\FrontendUser;
+use Contao\Input;
+use Contao\Module;
+use Contao\Pagination;
+use Contao\StringUtil;
+use Contao\System;
 
 /**
  * Front end module "advanced form data".
@@ -18,7 +28,7 @@ use Patchwork\Utf8;
  *
  * @author Fabian Ekert <fabian@oveleon.de>
  */
-class ModuleAdvancedFormData extends \Module
+class ModuleAdvancedFormData extends Module
 {
 
     /**
@@ -34,11 +44,14 @@ class ModuleAdvancedFormData extends \Module
      */
     public function generate()
     {
-        if (TL_MODE == 'BE') {
-            /** @var \BackendTemplate|object $objTemplate */
-            $objTemplate = new \BackendTemplate('be_wildcard');
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
 
-            $objTemplate->wildcard = '### '.Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['advancedFormData'][0]).' ###';
+        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request))
+        {
+            /** @var BackendTemplate|object $objTemplate */
+            $objTemplate = new BackendTemplate('be_wildcard');
+
+            $objTemplate->wildcard = '### ' . ($GLOBALS['TL_LANG']['FMD']['advancedFormData'][0] ?? '') .' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
@@ -95,12 +108,12 @@ class ModuleAdvancedFormData extends \Module
 
             // Get the current page
             $id = 'page_n' . $this->id;
-            $page = (\Input::get($id) !== null) ? \Input::get($id) : 1;
+            $page = (Input::get($id) !== null) ? Input::get($id) : 1;
 
             // Do not index or cache the page if the page number is outside the range
             if ($page < 1 || $page > max(ceil($total/$this->perPage), 1))
             {
-                throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+                throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
             }
 
             // Set limit and offset
@@ -115,7 +128,7 @@ class ModuleAdvancedFormData extends \Module
             }
 
             // Add the pagination menu
-            $objPagination = new \Pagination($total, $this->perPage, \Config::get('maxPaginationLinks'), $id);
+            $objPagination = new Pagination($total, $this->perPage, Config::get('maxPaginationLinks'), $id);
             $this->Template->pagination = $objPagination->generate("\n  ");
         }
 
@@ -140,7 +153,7 @@ class ModuleAdvancedFormData extends \Module
             case 'member_data':
                 if (FE_USER_LOGGED_IN)
                 {
-                    $objUser = \FrontendUser::getInstance();
+                    $objUser = FrontendUser::getInstance();
                     return AdvancedFormDataModel::countByMember($objUser->id);
                 }
                 break;
@@ -167,7 +180,7 @@ class ModuleAdvancedFormData extends \Module
             case 'member_data':
                 if (FE_USER_LOGGED_IN)
                 {
-                    $objUser = \FrontendUser::getInstance();
+                    $objUser = FrontendUser::getInstance();
                     return AdvancedFormDataModel::findByMember($objUser->id, array('limit'=>$limit,'offset'=>$offset));
                 }
                 break;
@@ -190,8 +203,8 @@ class ModuleAdvancedFormData extends \Module
      */
     protected function parseAdvancedFormData($objAdvancedFormData, $strClass='', $intCount=0)
     {
-        /** @var \FrontendTemplate|object $objTemplate */
-        $objTemplate = new \FrontendTemplate($this->advancedFormDataTemplate);
+        /** @var FrontendTemplate|object $objTemplate */
+        $objTemplate = new FrontendTemplate($this->advancedFormDataTemplate);
         $objTemplate->setData($objAdvancedFormData->row());
 
         if ($objAdvancedFormData->cssClass != '')
@@ -200,15 +213,15 @@ class ModuleAdvancedFormData extends \Module
         }
 
         $objTemplate->class = $strClass;
-        $objTemplate->dateAdded = \Date::parse(\Config::get('datimFormat'), $objAdvancedFormData->tstamp);
-        $objTemplate->editLink = \Environment::get('base') . 'contaoadvancedform/' . $this->cteAlias . '/edit/' . $this->advancedFormModule . '/main-above/' . $objAdvancedFormData->id . '/start';
-        $objTemplate->deleteLink = \Environment::get('request') . ((strpos(\Environment::get('request'), '?') !== false) ? '&' : '?') . 'module=' . $this->id . '&action=delete&id=' . $objAdvancedFormData->id;
+        $objTemplate->dateAdded = Date::parse(Config::get('datimFormat'), $objAdvancedFormData->tstamp);
+        $objTemplate->editLink = Environment::get('base') . 'contaoadvancedform/' . $this->cteAlias . '/edit/' . $this->advancedFormModule . '/main-above/' . $objAdvancedFormData->id . '/start';
+        $objTemplate->deleteLink = Environment::get('request') . ((strpos(Environment::get('request'), '?') !== false) ? '&' : '?') . 'module=' . $this->id . '&action=delete&id=' . $objAdvancedFormData->id;
 
         $objAdvancedForm = AdvancedFormModel::findByPk($this->advancedForm);
 
         if ($objAdvancedForm !== null)
         {
-            $fieldMapping = \StringUtil::deserialize($objAdvancedForm->fieldMapping, true);
+            $fieldMapping = StringUtil::deserialize($objAdvancedForm->fieldMapping, true);
 
             if (count($fieldMapping))
             {
@@ -265,7 +278,7 @@ class ModuleAdvancedFormData extends \Module
             return;
         }
 
-        $objUser = \FrontendUser::getInstance();
+        $objUser = FrontendUser::getInstance();
 
         $advancedFormData = AdvancedFormDataModel::findByIdAndMember($_GET['id'], $objUser->id);
 

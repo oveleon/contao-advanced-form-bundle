@@ -1,5 +1,7 @@
 <?php
 
+use Contao\ArrayUtil;
+
 $GLOBALS['TL_DCA']['tl_form_field']['config']['dynamicPtable'] = true;
 
 // Dynamically add the permission check and parent table
@@ -17,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_form_field']['palettes']['usermail']  = '{type_legend},ty
 $GLOBALS['TL_DCA']['tl_form_field']['palettes']['username']  = '{type_legend},type,name,label;{fconfig_legend},mandatory,placeholder;{expert_legend:hide},class,value,minlength,maxlength,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
 
 // Add fields
-array_insert($GLOBALS['TL_DCA']['tl_form_field']['fields'], 0, array
+ArrayUtil::arrayInsert($GLOBALS['TL_DCA']['tl_form_field']['fields'], 0, array
 (
     'rangemin' => array
     (

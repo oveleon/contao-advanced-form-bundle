@@ -8,9 +8,25 @@
 
 namespace Oveleon\ContaoAdvancedFormBundle;
 
+use Contao\BackendTemplate;
+use Contao\Config;
+use Contao\Date;
+use Contao\Email;
+use Contao\Environment;
+use Contao\FilesModel;
+use Contao\Folder;
+use Contao\FrontendTemplate;
 use Contao\FrontendUser;
+use Contao\Idna;
+use Contao\Input;
+use Contao\MemberModel;
+use Contao\NewsletterChannelModel;
+use Contao\PageModel;
+use Contao\StringUtil;
+use Contao\System;
+use Contao\Versions;
+use Contao\Widget;
 use Model\Collection;
-use Patchwork\Utf8;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
@@ -37,7 +53,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class AdvancedForm extends \Hybrid
 {
-
 	/**
 	 * Model
 	 * @var AdvancedFormModel
@@ -105,7 +120,7 @@ class AdvancedForm extends \Hybrid
         }
 
         // Load language file for field errors
-        \System::loadLanguageFile('default');
+        System::loadLanguageFile('default');
 
         parent::__construct($objElement);
     }
@@ -117,10 +132,12 @@ class AdvancedForm extends \Hybrid
      */
     public function generate()
     {
-        if (TL_MODE == 'BE')
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
+
+        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request))
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['CTE']['advanced_form'][0]) . ' ###';
+            $objTemplate = new BackendTemplate('be_wildcard');
+            $objTemplate->wildcard = '### ' . ($GLOBALS['TL_LANG']['CTE']['advanced_form'][0] ?? '') . ' ###';
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->title;
             $objTemplate->href = 'contao/main.php?do=advanced_form&amp;table=tl_advanced_form_page&amp;id=' . $this->id;
@@ -130,11 +147,11 @@ class AdvancedForm extends \Hybrid
 
         $this->formId = $this->formID ? 'auto_'.$this->formID : 'auto_form_'.$this->id;
 
-        if (($rawData = \Environment::get('AdvancedFormData')) !== null)
+        if (($rawData = Environment::get('AdvancedFormData')) !== null)
         {
             $_SESSION[$this->formId] = $rawData;
             unset($_SESSION['FORM_DATA']);
-            \Input::setPost('FORM_SUBMIT', '');
+            Input::setPost('FORM_SUBMIT', '');
         }
 
         $this->objFormPages = $this->getNecessaryFormPages();
@@ -174,9 +191,9 @@ class AdvancedForm extends \Hybrid
         $this->Template->labelPrev = 'Zurück';
         $this->Template->labelNext = $this->objFormPage->buttonLabel ? $this->objFormPage->buttonLabel : 'Weiter';
         $this->Template->ceId = $this->objParent->id;
-        $this->Template->addScript = !\Environment::get('hideScript');
+        $this->Template->addScript = !Environment::get('hideScript');
 
-        if (\Environment::get('AdvancedFormMode') == 'update' && $this->objFormPage->editButtonLabel)
+        if (Environment::get('AdvancedFormMode') == 'update' && $this->objFormPage->editButtonLabel)
         {
             $this->Template->labelNext = $this->objFormPage->editButtonLabel;
         }
@@ -273,7 +290,7 @@ class AdvancedForm extends \Hybrid
 				// Unset the default value depending on the field type (see #4722)
 				if (!empty($arrData['value']))
 				{
-					if (!\in_array('value', \StringUtil::trimsplit('[,;]', $GLOBALS['TL_DCA']['tl_form_field']['palettes'][$objField->type])))
+					if (!\in_array('value', StringUtil::trimsplit('[,;]', $GLOBALS['TL_DCA']['tl_form_field']['palettes'][$objField->type])))
 					{
 						$arrData['value'] = '';
 					}
@@ -294,7 +311,7 @@ class AdvancedForm extends \Hybrid
 				}
 
 				// Validate the input
-				if (\Input::post('FORM_SUBMIT') == $this->formId && \Input::post('FORM_ACTION') == 'next')
+				if (Input::post('FORM_SUBMIT') == $this->formId && \Input::post('FORM_ACTION') == 'next')
 				{
 					$objWidget->validate();
 
@@ -323,7 +340,7 @@ class AdvancedForm extends \Hybrid
 				}
 
                 // Validate the input
-                if (\Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && \Input::post('FORM_ACTION') == 'next')
+                if (Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && Input::post('FORM_ACTION') == 'next')
                 {
                     if ($_SESSION[$this->formId][$objField->name] != '')
                     {
@@ -344,7 +361,7 @@ class AdvancedForm extends \Hybrid
                 }
 
                 // Validate the input
-                if (\Input::post('FORM_SUBMIT') == $this->formId && \Input::post('FORM_ACTION') == 'prev')
+                if (Input::post('FORM_SUBMIT') == $this->formId && Input::post('FORM_ACTION') == 'prev')
                 {
                     $_POST[$objField->name] = $_SESSION[$this->formId][$objField->name];
 
@@ -364,7 +381,7 @@ class AdvancedForm extends \Hybrid
                 }
 
                 // Validate the input
-                if (\Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && \Input::post('FORM_ACTION') == 'prev')
+                if (Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && Input::post('FORM_ACTION') == 'prev')
                 {
                     $_POST[$objField->name] = $_SESSION[$this->formId][$objField->name];
 
@@ -383,7 +400,7 @@ class AdvancedForm extends \Hybrid
                     $doNotSubmit = true;
                 }
 
-                if (\Input::post('FORM_ACTION') == '')
+                if (Input::post('FORM_ACTION') == '')
                 {
                     if ($_SESSION[$this->formId][$objField->name] != '')
                     {
@@ -405,7 +422,7 @@ class AdvancedForm extends \Hybrid
                     }
                 }
 
-                if (\Environment::get('AdvancedFormMode') == 'update' && \Input::post('FORM_ACTION') == '')
+                if (Environment::get('AdvancedFormMode') == 'update' && Input::post('FORM_ACTION') == '')
                 {
                     $_POST[$objField->name] = $_SESSION[$this->formId][$objField->name];
 
@@ -445,13 +462,13 @@ class AdvancedForm extends \Hybrid
 		}
 
 		// Process the form data
-		if (\Input::post('FORM_SUBMIT') == $this->formId && !$doNotSubmit)
+		if (Input::post('FORM_SUBMIT') == $this->formId && !$doNotSubmit)
 		{
 			$this->processFormData($arrSubmitted, $arrLabels, $arrFields);
 		}
 
 		$strAttributes = '';
-		$arrAttributes = \StringUtil::deserialize($this->attributes, true);
+		$arrAttributes = StringUtil::deserialize($this->attributes, true);
 
 		if ($arrAttributes[0] != '')
 		{
@@ -467,7 +484,7 @@ class AdvancedForm extends \Hybrid
 		$this->Template->hasError = $doNotSubmit;
 		$this->Template->attributes = $strAttributes;
 		$this->Template->enctype = $hasUpload ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
-		$this->Template->action = str_replace('/start', '', \Environment::get('uri'));
+		$this->Template->action = str_replace('/start', '', Environment::get('uri'));
 		$this->Template->maxFileSize = $hasUpload ? $this->objModel->getMaxUploadFileSize() : false;
 		$this->Template->novalidate = $this->novalidate ? ' novalidate' : '';
 
@@ -555,19 +572,19 @@ class AdvancedForm extends \Hybrid
             }
 
             // Create the user
-            $objNewUser = new \MemberModel();
+            $objNewUser = new MemberModel();
             $objNewUser->setRow($arrData);
             $objNewUser->save();
 
             // Assign home directory
             if ($this->objFormPage->assignDir)
             {
-                $objHomeDir = \FilesModel::findByUuid($this->objFormPage->homeDir);
+                $objHomeDir = FilesModel::findByUuid($this->objFormPage->homeDir);
 
                 if ($objHomeDir !== null)
                 {
                     $this->import('Files');
-                    $strUserDir = \StringUtil::standardize($arrData['username']) ?: 'user_' . $objNewUser->id;
+                    $strUserDir = StringUtil::standardize($arrData['username']) ?: 'user_' . $objNewUser->id;
 
                     // Add the user ID if the directory exists
                     while (is_dir(TL_ROOT . '/' . $objHomeDir->path . '/' . $strUserDir))
@@ -576,7 +593,7 @@ class AdvancedForm extends \Hybrid
                     }
 
                     // Create the user folder
-                    new \Folder($objHomeDir->path . '/' . $strUserDir);
+                    new Folder($objHomeDir->path . '/' . $strUserDir);
 
                     $objUserDir = \FilesModel::findByPath($objHomeDir->path . '/' . $strUserDir);
 
@@ -598,7 +615,7 @@ class AdvancedForm extends \Hybrid
             }
 
             // Create the initial version (see #7816)
-            $objVersions = new \Versions('tl_member', $objNewUser->id);
+            $objVersions = new Versions('tl_member', $objNewUser->id);
             $objVersions->setUsername($objNewUser->username);
             $objVersions->setUserId(0);
             $objVersions->setEditUrl('contao/main.php?do=member&act=edit&id=%s&rt=1');
@@ -607,11 +624,11 @@ class AdvancedForm extends \Hybrid
             // Inform admin if no activation link is sent
             if (!$this->objFormPage->sendActivationMail)
             {
-                $objEmail = new \Email();
+                $objEmail = new Email();
 
                 $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
                 $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
-                $objEmail->subject = sprintf($GLOBALS['TL_LANG']['MSC']['adminSubject'], \Idna::decode(\Environment::get('host')));
+                $objEmail->subject = sprintf($GLOBALS['TL_LANG']['MSC']['adminSubject'], Idna::decode(Environment::get('host')));
 
                 $strData = "\n\n";
 
@@ -623,11 +640,11 @@ class AdvancedForm extends \Hybrid
                         continue;
                     }
 
-                    $v = \StringUtil::deserialize($v);
+                    $v = StringUtil::deserialize($v);
 
                     if ($k == 'dateOfBirth' && \strlen($v))
                     {
-                        $v = \Date::parse(\Config::get('dateFormat'), $v);
+                        $v = Date::parse(Config::get('dateFormat'), $v);
                     }
 
                     $strData .= $GLOBALS['TL_LANG']['tl_member'][$k][0] . ': ' . (\is_array($v) ? implode(', ', $v) : $v) . "\n";
@@ -643,7 +660,7 @@ class AdvancedForm extends \Hybrid
         // Store the values in the database
         if ($this->storeValues && $this->objFormPage->storeValues)
         {
-            $performUpdate = \Environment::get('AdvancedFormMode') == 'update';
+            $performUpdate = Environment::get('AdvancedFormMode') == 'update';
 
             $arrSet = array();
             $arrSet['tstamp'] = time();
@@ -657,9 +674,9 @@ class AdvancedForm extends \Hybrid
 
                 if (FE_USER_LOGGED_IN)
                 {
-                    $objUser = \FrontendUser::getInstance();
+                    $objUser = FrontendUser::getInstance();
                     $arrSet['member'] = $objUser->id;
-                    $arrSet['title'] = $objUser->username.' - [' . \Date::parse(\Config::get('datimFormat'), $arrSet['tstamp']) . ']';
+                    $arrSet['title'] = $objUser->username.' - [' . Date::parse(Config::get('datimFormat'), $arrSet['tstamp']) . ']';
                 }
                 else
                 {
@@ -667,7 +684,7 @@ class AdvancedForm extends \Hybrid
                 }
             }
 
-            $fieldMapping = \StringUtil::deserialize($this->fieldMapping, true);
+            $fieldMapping = StringUtil::deserialize($this->fieldMapping, true);
 
             if (count($fieldMapping))
             {
@@ -687,7 +704,7 @@ class AdvancedForm extends \Hybrid
                 {
                     if ($v['uploaded'])
                     {
-                        $arrSet[$k] = \StringUtil::stripRootDir($v['tmp_name']);
+                        $arrSet[$k] = StringUtil::stripRootDir($v['tmp_name']);
                     }
                 }
             }
@@ -697,7 +714,7 @@ class AdvancedForm extends \Hybrid
             {
                 if ($v === '')
                 {
-                    $arrSet[$k] = \Widget::getEmptyValueByFieldType($GLOBALS['TL_DCA']['tl_advanced_form_data']['fields'][$k]['sql']);
+                    $arrSet[$k] = Widget::getEmptyValueByFieldType($GLOBALS['TL_DCA']['tl_advanced_form_data']['fields'][$k]['sql']);
                 }
             }
 
@@ -726,7 +743,7 @@ class AdvancedForm extends \Hybrid
 					continue;
 				}
 
-				$v = \StringUtil::deserialize($v);
+				$v = StringUtil::deserialize($v);
 
 				// Skip empty fields
 				if ($this->objFormPage->skipEmpty && !\is_array($v) && !\strlen($v))
@@ -755,7 +772,7 @@ class AdvancedForm extends \Hybrid
 				}
 			}
 
-			$recipients = \StringUtil::splitCsv($this->objFormPage->recipient);
+			$recipients = StringUtil::splitCsv($this->objFormPage->recipient);
 
 			// Format recipients
 			foreach ($recipients as $k=>$v)
@@ -763,7 +780,7 @@ class AdvancedForm extends \Hybrid
 				$recipients[$k] = str_replace(array('[', ']', '"'), array('<', '>', ''), $v);
 			}
 
-			$email = new \Email();
+			$email = new Email();
 
 			// Get subject and message
 			if ($this->objFormPage->format == 'email')
@@ -777,18 +794,18 @@ class AdvancedForm extends \Hybrid
 			$email->fromName = $GLOBALS['TL_ADMIN_NAME'];
 
 			// Get the "reply to" address
-			if (!empty(\Input::post('email', true)))
+			if (!empty(Input::post('email', true)))
 			{
-				$replyTo = \Input::post('email', true);
+				$replyTo = Input::post('email', true);
 
 				// Add the name
-				if (!empty(\Input::post('name')))
+				if (!empty(Input::post('name')))
 				{
-					$replyTo = '"' . \Input::post('name') . '" <' . $replyTo . '>';
+					$replyTo = '"' . Input::post('name') . '" <' . $replyTo . '>';
 				}
-				elseif (!empty(\Input::post('firstname')) && !empty(\Input::post('lastname')))
+				elseif (!empty(Input::post('firstname')) && !empty(Input::post('lastname')))
 				{
-					$replyTo = '"' . \Input::post('firstname') . ' ' . \Input::post('lastname') . '" <' . $replyTo . '>';
+					$replyTo = '"' . Input::post('firstname') . ' ' . Input::post('lastname') . '" <' . $replyTo . '>';
 				}
 
 				$email->replyTo($replyTo);
@@ -803,16 +820,16 @@ class AdvancedForm extends \Hybrid
 			// Send copy to sender
 			if (!empty($arrSubmitted['cc']))
 			{
-				$email->sendCc(\Input::post('email', true));
+				$email->sendCc(Input::post('email', true));
 				unset($_SESSION[$this->formId]['cc']);
 			}
 
 			// Attach XML file
 			if ($this->objFormPage->format == 'xml')
 			{
-				$objTemplate = new \FrontendTemplate('form_xml');
+				$objTemplate = new FrontendTemplate('form_xml');
 				$objTemplate->fields = $fields;
-				$objTemplate->charset = \Config::get('characterSet');
+				$objTemplate->charset = Config::get('characterSet');
 
 				$email->attachFileFromString($objTemplate->parse(), 'form.xml', 'application/xml');
 			}
@@ -820,7 +837,7 @@ class AdvancedForm extends \Hybrid
 			// Attach CSV file
 			if ($this->objFormPage->format == 'csv')
 			{
-				$email->attachFileFromString(\StringUtil::decodeEntities('"' . implode('";"', $keys) . '"' . "\n" . '"' . implode('";"', $values) . '"'), 'form.csv', 'text/comma-separated-values');
+				$email->attachFileFromString(StringUtil::decodeEntities('"' . implode('";"', $keys) . '"' . "\n" . '"' . implode('";"', $values) . '"'), 'form.csv', 'text/comma-separated-values');
 			}
 
 			$uploaded = '';
@@ -833,7 +850,7 @@ class AdvancedForm extends \Hybrid
 					// Add a link to the uploaded file
 					if ($file['uploaded'])
 					{
-						$uploaded .= "\n" . \Environment::get('base') . \StringUtil::stripRootDir(\dirname($file['tmp_name'])) . '/' . rawurlencode($file['name']);
+						$uploaded .= "\n" . Environment::get('base') . StringUtil::stripRootDir(\dirname($file['tmp_name'])) . '/' . rawurlencode($file['name']);
 						continue;
 					}
 
@@ -842,14 +859,14 @@ class AdvancedForm extends \Hybrid
 			}
 
 			$uploaded = \strlen(trim($uploaded)) ? "\n\n---\n" . $uploaded : '';
-			$email->text = \StringUtil::decodeEntities(trim($message)) . $uploaded . "\n\n";
+			$email->text = StringUtil::decodeEntities(trim($message)) . $uploaded . "\n\n";
 
 			// Send the e-mail
 			try
 			{
 				$email->sendTo($recipients);
 			}
-			catch (\Swift_SwiftException $e)
+			catch (\Exception $e)
 			{
 				$this->log('Form "' . $this->objFormPage->title . '" could not be sent: ' . $e->getMessage(), __METHOD__, TL_ERROR);
 			}
@@ -861,7 +878,7 @@ class AdvancedForm extends \Hybrid
 		foreach (array_keys($_POST) as $key)
 		{
 		    // ToDo: Wenn hier die Daten des Formulars nicht in FORM_DATA geschrieben werden, kann kein Seitenwechsel stattfinden. POST parameter FORM_PAGE fehlt in diesem Fall. Warum?
-			$_SESSION['FORM_DATA'][$key] = $this->allowTags ? \Input::postHtml($key, true) : \Input::post($key, true);
+			$_SESSION['FORM_DATA'][$key] = $this->allowTags ? Input::postHtml($key, true) : Input::post($key, true);
 		}
 
 		$arrFiles = $_SESSION['FILES'];
@@ -998,12 +1015,12 @@ class AdvancedForm extends \Hybrid
             return AdvancedFormPageModel::findOneByPid($this->id, array('order'=>'sorting ASC'));
         }
 
-        if (\Environment::get('AdvancedFormUpdate') === 'start')
+        if (Environment::get('AdvancedFormUpdate') === 'start')
         {
             return AdvancedFormPageModel::findOneByPid($this->id, array('order'=>'sorting ASC'));
         }
 
-        if (\Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && !isset($_SESSION[$this->formId]['SECOND_ACTION']) && isset($_SESSION[$this->formId]['FORM_PAGE_INDEX']))
+        if (Input::post('FORM_SUBMIT') == preg_replace('/^auto_/i', '', $this->formId) && !isset($_SESSION[$this->formId]['SECOND_ACTION']) && isset($_SESSION[$this->formId]['FORM_PAGE_INDEX']))
         {
             $_SESSION[$this->formId]['FORM_PAGE'] = $_SESSION[$this->formId]['FORM_PAGE_INDEX'];
 
@@ -1018,21 +1035,21 @@ class AdvancedForm extends \Hybrid
 
             unset($_SESSION[$this->formId]['FORM_PAGE']);
         }
-        elseif (\Input::post('FORM_SUBMIT') == $this->formId)
+        elseif (Input::post('FORM_SUBMIT') == $this->formId)
         {
-            if (\Input::post('FORM_ACTION') == 'next')
+            if (Input::post('FORM_ACTION') == 'next')
             {
                 $objFormPage = AdvancedFormPageModel::findOneByAlias(\Input::post('FORM_PAGE'));
             }
-            elseif (\Input::post('FORM_ACTION') == 'prev')
+            elseif (Input::post('FORM_ACTION') == 'prev')
             {
                 $objFormPage = $this->getPrevFormPage();
             }
 
-            $_SESSION[$this->formId]['SECOND_ACTION'] = \Input::post('FORM_ACTION');
-            $_SESSION[$this->formId]['FORM_PAGE'] = \Input::post('FORM_PAGE');
-            $_SESSION[$this->formId]['SECOND_ACTION_INDEX'] = \Input::post('FORM_ACTION');
-            $_SESSION[$this->formId]['FORM_PAGE_INDEX'] = \Input::post('FORM_PAGE');
+            $_SESSION[$this->formId]['SECOND_ACTION'] = Input::post('FORM_ACTION');
+            $_SESSION[$this->formId]['FORM_PAGE'] = Input::post('FORM_PAGE');
+            $_SESSION[$this->formId]['SECOND_ACTION_INDEX'] = Input::post('FORM_ACTION');
+            $_SESSION[$this->formId]['FORM_PAGE_INDEX'] = Input::post('FORM_PAGE');
         }
         elseif (isset($_SESSION[$this->formId]['SECOND_ACTION']))
         {
@@ -1199,7 +1216,7 @@ class AdvancedForm extends \Hybrid
 
 				foreach ($_SESSION[$formId][$tl] as $message)
 				{
-					$objTemplate = new \FrontendTemplate('form_message');
+					$objTemplate = new FrontendTemplate('form_message');
 					$objTemplate->message = $message;
 					$objTemplate->class = strtolower($tl);
 
@@ -1220,8 +1237,8 @@ class AdvancedForm extends \Hybrid
     {
         // Prepare the simple token data
         $arrTokenData = $arrData;
-        $arrTokenData['domain'] = \Idna::decode(\Environment::get('host'));
-        $arrTokenData['link'] = \Idna::decode(\Environment::get('base')) . \PageModel::findById($this->objFormPage->registrationPage)->getFrontendUrl() . '?token=' . $arrData['activation'];
+        $arrTokenData['domain'] = Idna::decode(Environment::get('host'));
+        $arrTokenData['link'] = Idna::decode(Environment::get('base')) . PageModel::findById($this->objFormPage->registrationPage)->getFrontendUrl() . '?token=' . $arrData['activation'];
         $arrTokenData['channels'] = '';
 
         $bundles = \System::getContainer()->getParameter('kernel.bundles');
@@ -1244,7 +1261,7 @@ class AdvancedForm extends \Hybrid
             // Replace the wildcard
             if (!empty($arrData['newsletter']))
             {
-                $objChannels = \NewsletterChannelModel::findByIds($arrData['newsletter']);
+                $objChannels = NewsletterChannelModel::findByIds($arrData['newsletter']);
 
                 if ($objChannels !== null)
                 {
@@ -1256,19 +1273,19 @@ class AdvancedForm extends \Hybrid
         // Deprecated since Contao 4.0, to be removed in Contao 5.0
         $arrTokenData['channel'] = $arrTokenData['channels'];
 
-        $objEmail = new \Email();
+        $objEmail = new Email();
 
         $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
         $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
-        $objEmail->subject = sprintf($GLOBALS['TL_LANG']['MSC']['emailSubject'], \Idna::decode(\Environment::get('host')));
-        $objEmail->text = \StringUtil::parseSimpleTokens($this->objFormPage->activationText, $arrTokenData);
+        $objEmail->subject = sprintf($GLOBALS['TL_LANG']['MSC']['emailSubject'], Idna::decode(Environment::get('host')));
+        $objEmail->text = StringUtil::parseSimpleTokens($this->objFormPage->activationText, $arrTokenData);
 
         // Send the e-mail
         try
         {
             $objEmail->sendTo($arrData['email']);
         }
-        catch (\Swift_SwiftException $e)
+        catch (\Exception $e)
         {
             $this->log('Form "' . $this->objFormPage->title . '" could not be sent: ' . $e->getMessage(), __METHOD__, TL_ERROR);
         }
