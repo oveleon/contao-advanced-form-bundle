@@ -4,13 +4,15 @@ namespace Oveleon\ContaoAdvancedFormBundle\Controller;
 
 use Contao\ArticleModel;
 use Contao\ContentModel;
-use Contao\Controller;
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\Environment;
 use Contao\FrontendIndex;
 use Contao\ModuleModel;
 use Contao\PageModel;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+use Contao\System;
 use Exception;
 use Oveleon\ContaoAdvancedFormBundle\AdvancedForm;
 use Oveleon\ContaoAdvancedFormBundle\AdvancedFormDataModel;
@@ -23,12 +25,17 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(defaults={"_scope" = "frontend", "_token_check" = true})
  */
-class AjaxController extends Controller
+class AjaxController extends AbstractController
 {
     /**
-     * @var mixed|null
+     * @var ContaoFramework
      */
-    private mixed $container;
+    private $framework;
+
+    public function __construct(ContaoFramework $framework)
+    {
+        $this->framework = $framework;
+    }
 
     /**
      * Runs the command scheduler.
@@ -39,7 +46,7 @@ class AjaxController extends Controller
      */
     public function indexAction(): Response
     {
-        $this->container->get('contao.framework')->initialize();
+        $this->framework->initialize();
 
         return new Response('<html><body>not used</body></html>');
     }
@@ -54,7 +61,7 @@ class AjaxController extends Controller
      */
     public function formAction($id): Response
     {
-        $this->container->get('contao.framework')->initialize();
+        $this->framework->initialize();
 
         $controller = new FrontendIndex();
 
@@ -84,12 +91,12 @@ class AjaxController extends Controller
      */
     public function startEditAction($ceId, $moduleId, $column, $dataId): Response
     {
-        $this->container->get('contao.framework')->initialize();
+        $this->framework->initialize();
 
-        $controller = new \FrontendIndex();
+        $controller = new FrontendIndex();
 
         $objData = AdvancedFormDataModel::findByPk($dataId);
-        $rawData = \StringUtil::deserialize($objData->rawData);
+        $rawData = StringUtil::deserialize($objData->rawData);
 
         Environment::set('hideScript', true);
         Environment::set('AdvancedForm', $ceId);
@@ -120,7 +127,7 @@ class AjaxController extends Controller
      */
     public function editAction($ceId, $moduleId, $column, $dataId): Response
     {
-        $this->container->get('contao.framework')->initialize();
+        $this->framework->initialize();
 
         $controller = new FrontendIndex();
 
