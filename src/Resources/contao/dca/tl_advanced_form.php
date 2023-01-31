@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_advanced_form'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_advanced_form']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.svg',
-				'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+				'attributes'          => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? null) . '\'))return false;Backend.getScrollOffset()"'
 			),
 			'show' => array
 			(
@@ -262,7 +262,7 @@ class tl_advanced_form extends Backend
         {
             if (!$autoAlias)
             {
-                throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+                throw new Exception(sprintf(($GLOBALS['TL_LANG']['ERR']['aliasExists'] ?? null), $varValue));
             }
 
             $varValue .= '-' . $dc->id;
@@ -278,6 +278,6 @@ class tl_advanced_form extends Backend
      */
     public function optionImportWizard()
     {
-        return ' <a href="' . $this->addToUrl('key=option') . '" title="' . specialchars($GLOBALS['TL_LANG']['MSC']['ow_import'][1]) . '" onclick="Backend.getScrollOffset()">' . Image::getHtml('tablewizard.svg', $GLOBALS['TL_LANG']['MSC']['ow_import'][0]) . '</a>';
+        return ' <a href="' . $this->addToUrl('key=option') . '" title="' . StringUtil::specialchars(($GLOBALS['TL_LANG']['MSC']['ow_import'][1] ?? '')) . '" onclick="Backend.getScrollOffset()">' . Image::getHtml('tablewizard.svg', ($GLOBALS['TL_LANG']['MSC']['ow_import'][0] ?? '')) . '</a>';
     }
 }

@@ -9,6 +9,11 @@
 namespace Oveleon\ContaoAdvancedFormBundle;
 
 
+use Contao\Environment;
+use Contao\LayoutModel;
+use Contao\PageModel;
+use Contao\PageRegular;
+
 class AdvancedFormField
 {
     /**
@@ -18,7 +23,7 @@ class AdvancedFormField
      *
      * @return array
      */
-    public function unsetAdvancedFormFields($arrFields, $formId, $form)
+    public function unsetAdvancedFormFields($arrFields, $formId, $form): array
     {
         if (get_class($form) !== 'Oveleon\ContaoAdvancedFormBundle\AdvancedForm')
         {
@@ -35,20 +40,20 @@ class AdvancedFormField
     }
 
     /**
-     * @param \PageModel   $objPage
-     * @param \LayoutModel $objLayout
-     * @param \PageRegular $pageRegular
+     * @param PageModel $objPage
+     * @param LayoutModel $objLayout
+     * @param PageRegular $pageRegular
      */
-    public function removeModulesFromLayout(&$objPage, &$objLayout, $pageRegular)
+    public function removeModulesFromLayout(PageModel &$objPage, LayoutModel &$objLayout, PageRegular $pageRegular): void
     {
-        if (\Environment::get('AdvancedForm'))
+        if (Environment::get('AdvancedForm'))
         {
             $modules = array
             (
                 array
                 (
-                    'mod'    => \Environment::get('AdvancedFormModule'),
-                    'col'    => \Environment::get('AdvancedFormColumn'),
+                    'mod'    => Environment::get('AdvancedFormModule'),
+                    'col'    => Environment::get('AdvancedFormColumn'),
                     'enable' => 1
                 )
             );

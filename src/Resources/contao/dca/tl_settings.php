@@ -1,9 +1,11 @@
 <?php
 // Add fields to palette
+use Contao\ArrayUtil;
+
 $GLOBALS['TL_DCA']['tl_settings']['palettes'] = str_replace('{date_legend}', '{mapbox_legend},mapboxAccessToken;{date_legend}', $GLOBALS['TL_DCA']['tl_settings']['palettes']);
 
 // Add fields
-array_insert($GLOBALS['TL_DCA']['tl_settings']['fields'], 0, array
+ArrayUtil::arrayInsert($GLOBALS['TL_DCA']['tl_settings']['fields'], 0, array
 (
     'mapboxAccessToken' => array
     (
